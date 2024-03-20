@@ -1,21 +1,30 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, Modal, Select, Upload } from "antd";
 import { HiXCircle } from "react-icons/hi";
 import useSignup from "../features/authentication/useSignup";
+import { useState } from "react";
+import { useFormData } from "../features/users/useFormData";
+
 
 const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
+  const [file,setFile]=useState();
   const { Option } = Select;
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const { signup, isPending } = useSignup();
 
-  const onFinish = (values) => {
-    signup(values, {
+  const onFinish =(values) => {
+    const {firstName,lastName,email,password,passwordConfirm,employeeId,designation,teamLead,reportingManager}=values;
+    const form=useFormData(firstName,lastName,email,password,passwordConfirm,employeeId,designation,teamLead,reportingManager,file);
+     signup(form, {
       onSettled: () => {
         handleCancel();
       },
     });
   };
+
+  
+  
   return (
     <div className="">
       <Modal
@@ -29,6 +38,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
           onFinish={onFinish}
           layout="vertical"
           className="flex flex-col"
+          encType="multipart/form-data"
         >
           <div className="flex gap-x-4">
             <Form.Item
@@ -121,6 +131,19 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
               </Select>
             </Form.Item>
           </div>
+
+          {/* Add Upload Component for Image */}
+          <Form.Item
+            label="Upload Image"
+            name="file"
+            value={file}
+            extra="Upload employee profile image"
+            rules={[
+              { required: true, message: 'Please upload an image' },
+            ]}
+          >
+           <input type="file" accept=".png,.jpg,.jpeg" value={file} name="file" onChange={(e)=>setFile(e.target.files[0])} />
+          </Form.Item>
 
           <Form.Item>
             <Button
