@@ -41,6 +41,7 @@ const AllUsersList = () => {
         <Link to={`${item?._id}`}>{`${item.firstName} ${item?.lastName}`}</Link>
       ),
       designation: item?.designation,
+      profile:item?.profile,
     };
   });
 
@@ -85,7 +86,7 @@ const AllUsersList = () => {
                 <div className="flex items-center gap-4 px-2">
                   <Avatar
                     size={50}
-                    src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
+                    src={`${item.profile}`}
                   />
                   <div>
                     <div className="text-base">{item.title}</div>

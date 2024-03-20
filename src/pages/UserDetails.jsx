@@ -46,9 +46,9 @@ const UserDetails = () => {
         </div>
         <div className="text-center">
           <img
-            className="w-56 rounded-full shadow-md"
-            src="../assets/illustration-businessman_53876-5856.jpg"
-            alt=""
+            className="w-52 h-52 rounded-full object-cover shadow-md"
+            src={userData?.profile}
+            alt="../assets/illustration-businessman_53876-5856.jpg"
           />
           <p className="text-xl mt-4">
             {" "}

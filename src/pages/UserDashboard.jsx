@@ -135,13 +135,16 @@ const Dashboard = () => {
                 </Button>
               </div>
               <div>
-                <textarea
+                {/* <textarea
                   name=""
                   id=""
                   cols="20"
                   rows="4"
                   maxLength={"200px"}
-                ></textarea>
+                >
+                  
+                </textarea> */}
+                <img src={userData?.data?.user?.profile} className="w-56 h-56 object-cover rounded-2xl" alt="h" />
               </div>
             </div>
           </div>
