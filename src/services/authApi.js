@@ -31,7 +31,11 @@ export const logout = () => {
 };
 
 export const signup = async (values) => {
-  const response = await api.post("/signup", { ...values });
+  const response = await api.post("/signup", values,{
+    headers:{
+      "Content-Type":"multipart/form-data"
+    }
+  });
   return response.data;
 };
 
