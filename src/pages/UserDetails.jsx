@@ -28,7 +28,7 @@ const UserDetails = () => {
   }
 
   return (
-    <div className="p-4 flex justify-center items-center">
+    <div className="p-4 flex justify-center items-center dark:bg-slate-400 dark:text-slate-600">
       {isPending && <LoaderIcon />}
       <Modal title="Delete User" open={isModalOpen} footer={<>
         <Button onClick={handleCancel}>Cancel</Button>
@@ -39,14 +39,14 @@ const UserDetails = () => {
         <h2 className="text-lg"> Do you really want to delete these records? This process cannot be undone. </h2>
         </div>
       </Modal>
-      <div className="relative flex flex-col gap-4 bg-slate-50 p-4 w-full justify-center items-center">
+      <div className="relative flex  gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
             <Button className="text-red-500" onClick={showModal}><HiTrash/></Button>
             <Button className="text-blue-400"><HiPencil/></Button>
         </div>
         <div className="text-center">
           <img
-            className="w-52 h-52 rounded-full object-cover shadow-md"
+            className="w-36 h-36 rounded-md object-cover shadow-md"
             src={userData?.profile}
             alt="../assets/illustration-businessman_53876-5856.jpg"
           />
@@ -55,21 +55,25 @@ const UserDetails = () => {
             {`${userData?.firstName} ${userData?.lastName}`}
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-x-10 gap-y-4">
           <p className="text-lg">
-            <span className="text-slate-400 block">Email : </span>
+            <span className="text-slate-400 block dark:text-white">Email : </span>
             {`${userData?.email}`}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block">Employee Id : </span>
+            <span className="text-slate-400 block dark:text-white">Employee Id : </span>
             {`${userData?.employeeId}`}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block">Reporting Manager :</span>{" "}
+            <span className="text-slate-400 block dark:text-white">Designation :</span>{" "}
+            {`${userData?.designation} `}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">Reporting Manager :</span>{" "}
             {`${userData?.reportingManager} `}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block">Team Lead : </span>
+            <span className="text-slate-400 block dark:text-white">Team Lead : </span>
             {`${userData?.teamLead}`}
           </p>
         </div>
