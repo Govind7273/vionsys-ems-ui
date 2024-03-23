@@ -3,17 +3,19 @@ import useGetCurrentUser from "../features/users/useGetCurrentUser";
 import { HiTrash, HiPencil } from "react-icons/hi";
 import { LoaderIcon } from "react-hot-toast";
 import { Button, Modal } from "antd";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useDeleteUser } from "../features/users/useDeleteUser";
+import ExcelForm from "../ui/ExcelForm";
+import ButtonWrapper from "../ui/NeumoBtn";
 
 const UserDetails = () => {
   const { userId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user, isPending } = useGetCurrentUser(userId);
   const userData = user?.data?.user;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {deleteUser, isPending: deleteLoading} = useDeleteUser();
-  
+  const [excelModal, setexcelModal] = useState(false);
+  const { deleteUser, isPending: deleteLoading } = useDeleteUser();
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -24,25 +26,51 @@ const UserDetails = () => {
 
   const handleDelete = () => {
     deleteUser(userId);
-    navigate('/employees')
-  }
+    navigate("/employees");
+  };
 
   return (
     <div className="p-4 flex justify-center items-center dark:bg-slate-400 dark:text-slate-600">
       {isPending && <LoaderIcon />}
-      <Modal title="Delete User" open={isModalOpen} footer={<>
-        <Button onClick={handleCancel}>Cancel</Button>
-        <Button type="primary" className="bg-blue-400 text-slate-50" disabled={deleteLoading} onClick={handleDelete}>Delete</Button>
-      </>} onCancel={handleCancel}>
+      <Modal
+        title="Delete User"
+        open={isModalOpen}
+        footer={
+          <>
+            <Button onClick={handleCancel}>Cancel</Button>
+            <Button
+              type="primary"
+              className="bg-blue-400 text-slate-50"
+              disabled={deleteLoading}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+          </>
+        }
+        onCancel={handleCancel}
+      >
         <div className="flex flex-col gap-4 justify-center items-center p-3">
-        <HiTrash className="text-red-400" size={40} />
-        <h2 className="text-lg"> Do you really want to delete these records? This process cannot be undone. </h2>
+          <HiTrash className="text-red-400" size={40} />
+          <h2 className="text-lg">
+            {" "}
+            Do you really want to delete these records? This process cannot be
+            undone.{" "}
+          </h2>
         </div>
       </Modal>
+      <ExcelForm isModalOpen={excelModal} setIsModalOpen={setexcelModal} userId={userId} />
       <div className="relative flex  gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
-            <Button className="text-red-500" onClick={showModal}><HiTrash/></Button>
-            <Button className="text-blue-400"><HiPencil/></Button>
+          <button onClick={() => setexcelModal(true)}>
+            <ButtonWrapper text={""} />
+          </button>
+          <Button className="text-red-500" onClick={showModal}>
+            <HiTrash />
+          </Button>
+          <Button className="text-blue-400">
+            <HiPencil />
+          </Button>
         </div>
         <div className="text-center">
           <img
@@ -57,23 +85,33 @@ const UserDetails = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-x-10 gap-y-4">
           <p className="text-lg">
-            <span className="text-slate-400 block dark:text-white">Email : </span>
+            <span className="text-slate-400 block dark:text-white">
+              Email :{" "}
+            </span>
             {`${userData?.email}`}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block dark:text-white">Employee Id : </span>
+            <span className="text-slate-400 block dark:text-white">
+              Employee Id :{" "}
+            </span>
             {`${userData?.employeeId}`}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block dark:text-white">Designation :</span>{" "}
+            <span className="text-slate-400 block dark:text-white">
+              Designation :
+            </span>{" "}
             {`${userData?.designation} `}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block dark:text-white">Reporting Manager :</span>{" "}
+            <span className="text-slate-400 block dark:text-white">
+              Reporting Manager :
+            </span>{" "}
             {`${userData?.reportingManager} `}
           </p>
           <p className="text-lg">
-            <span className="text-slate-400 block dark:text-white">Team Lead : </span>
+            <span className="text-slate-400 block dark:text-white">
+              Team Lead :{" "}
+            </span>
             {`${userData?.teamLead}`}
           </p>
         </div>

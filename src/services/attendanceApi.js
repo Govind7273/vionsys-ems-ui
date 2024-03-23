@@ -35,12 +35,27 @@ export const updateAttendanceApi = async ({ time, timeTag, user }) => {
   return response.data;
 };
 
-export const getExcelData = async (Format_startDate, Format_endDate) => {
-  const data={
+export const getExcelData = async (Format_startDate, Format_endDate, email) => {
+  const data = {
     Format_startDate,
-    Format_endDate
-  }
-  console.log(Format_startDate, Format_endDate);
-  const responce = await api.post("/attendance/Excel/getExcel",data);
-  return responce.data;
+    Format_endDate,
+    email,
+  };
+  const response = await api.post("/attendance/Excel/getExcel", data);
+  return response.data;
+};
+
+export const getExcelDataByID = async (
+  Format_startDate,
+  Format_endDate,
+  email,
+  userId
+) => {
+  const data = {
+    Format_startDate,
+    Format_endDate,
+    email,
+  };
+  const response = await api.post(`/attendance/Excel/getExcel/${userId}`, data);
+  return response.data;
 };
