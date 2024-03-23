@@ -91,10 +91,10 @@ const Dashboard = () => {
         <Card title="Profile">
           <div className="w-full rounded-lg text-lg">
             {isPending && <p>Loading...</p>}
-            <div className="flex justify-between">
+            <div className="flex justify-around gap-8">
               <div className="flex-1">
                 <h2>
-                  <span className="text-slate-500">Name: </span>
+                  <span className="order-1 text-slate-500">Name: </span>
                   {`${userData?.data?.user?.firstName} ${userData?.data?.user?.firstName}`}
                 </h2>
                 <h2>
@@ -114,7 +114,7 @@ const Dashboard = () => {
                   {userData?.data?.user?.teamLead}
                 </h2>
               </div>
-              <div className="flex gap-4 flex-1">
+              <div className="order-2 flex gap-4 flex-1 justify-center items-center">
                 <Button
                   onClick={handleAttendanceLogin}
                   disabled={
@@ -134,7 +134,7 @@ const Dashboard = () => {
                   Check Out
                 </Button>
               </div>
-              <div>
+              <div className="order-3">
                 {/* <textarea
                   name=""
                   id=""
