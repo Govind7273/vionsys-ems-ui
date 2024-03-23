@@ -13,6 +13,8 @@ import Dashboard from "./pages/Dashboard";
 import AttendanceList from "./ui/AttendanceList";
 import AllUsersList from "./ui/AllUsersList";
 import UserDetails from "./pages/UserDetails";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPasswod from "./pages/ResetPasswod";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +42,8 @@ function App() {
         <BrowserRouter>
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/ForgotPassword" element={<ForgotPassword />} />
+              <Route path="/ResetPassword/:token" element={<ResetPasswod/>} />
               <Route
                 element={
                   localStorage.getItem("token") ? (
@@ -55,6 +59,7 @@ function App() {
                 <Route path="/employees" element={<AllUsersList />} />
                 <Route path="/employees/:userId" element={<UserDetails />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
+
                 <Route path="*" element={<RouteNotFound />} />
               </Route>
             </Routes>

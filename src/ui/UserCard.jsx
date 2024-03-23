@@ -17,7 +17,8 @@ const UserCard = ({ item }) => {
         <div className="">EmployeeId: {item?.employeeId}</div>
         <div className="">Reporting Manager : {item?.reportingManager}</div>
         <div className="">Team Lead : {item?.teamLead}</div>
-        <div></div>
+        <div className="">excel download : "download"</div>
+     
       </div>
     </Card>
   );
