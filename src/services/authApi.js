@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const BASE_URL = "https://ems-app-cmw3.onrender.com/api/v1/users";
+// const BASE_URL = "https://ems-app-cmw3.onrender.com/api/v1/users";
 const token = localStorage.getItem("token");
 
-
-// const BASE_URL = "http://localhost:8000/api/v1/users";
+const BASE_URL = "http://localhost:8088/api/v1/users";
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -39,4 +38,17 @@ export const signup = async (values) => {
 export const getCurrentUser = async (userId) => {
   const user = await api.get(`${userId}`);
   return user.data;
+};
+
+export const ForgotPassword = async (email) => {
+  const responce = await api.post("/forgotPassword", { email });
+  return responce;
+};
+
+export const ResetPassword = async ( password, passwordConfirm, token ) => {
+  const responce = await api.patch(`/resetPassword/${token}`, {
+    password,
+    passwordConfirm,
+  });
+  return responce
 };
