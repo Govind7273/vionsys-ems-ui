@@ -3,9 +3,12 @@ import useLogin from "../features/authentication/useLogin";
 import { HiCheck } from "react-icons/hi";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import {jwtDecode} from 'jwt-decode'
+import { jwtDecode } from "jwt-decode";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate =useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isPending } = useLogin();
@@ -22,8 +25,9 @@ const Login = () => {
         },
         onSuccess: (data) => {
           const decodedToken = jwtDecode(data.token);
-          localStorage.setItem("user",JSON.stringify(decodedToken));
+          localStorage.setItem("user", JSON.stringify(decodedToken));
           toast.success(`Log in successfully.`, {
+            
             icon: <HiCheck color="green" />,
           });
           queryClient.invalidateQueries({
@@ -76,6 +80,9 @@ const Login = () => {
             {isPending ? "Loading...." : "Login"}
           </button>
         </form>
+          <div>
+            <Link to={'/ForgotPassword'}>Forgot Password ?</Link>
+          </div>
       </div>
     </div>
   );
