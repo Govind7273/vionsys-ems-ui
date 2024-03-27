@@ -6,9 +6,11 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import useGetExcel from "../features/attendance/useGetExcel";
+import useGetExcelById from "../features/attendance/useGetExcelById";
 
-const ExcelForm = ({ isModalOpen, setIsModalOpen }) => {
+const ExcelForm = ({ isModalOpen, setIsModalOpen, userId }) => {
   const { getExcel, isPending } = useGetExcel();
+  const { getExcelByid, isPending2 } = useGetExcelById();
   const [dateRange, setDateRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -24,13 +26,11 @@ const ExcelForm = ({ isModalOpen, setIsModalOpen }) => {
     const { startDate, endDate } = dateRange;
     const Format_startDate = format(startDate, "yyyy-MM-dd");
     const Format_endDate = format(endDate, "yyyy-MM-dd");
-  //  console.log( Format_startDate, Format_endDate )
-    getExcel(
-      {Format_startDate, Format_endDate },
-      {
-        onSettled: () => console.log("yupppu"),
-      }
-    );
+    if (userId) {
+      getExcelByid({ Format_startDate, Format_endDate, email, userId });
+      return
+    }
+    getExcel({ Format_startDate, Format_endDate, email });
   };
 
   return (
@@ -69,6 +69,7 @@ const ExcelForm = ({ isModalOpen, setIsModalOpen }) => {
 
           <Form.Item>
             <Button
+              disabled={isPending}
               type="primary"
               className="bg-slate-600 hover:bg-slate-500"
               htmlType="submit"

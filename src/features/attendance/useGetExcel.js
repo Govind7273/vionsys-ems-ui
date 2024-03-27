@@ -9,13 +9,13 @@ const useGetExcel = () => {
     isPending,
   } = useMutation({
     mutationKey: "getexceldata",
-    mutationFn: ({ Format_startDate, Format_endDate }) =>
-      getExcelDataApi( Format_startDate, Format_endDate ),
+    mutationFn: ({ Format_startDate, Format_endDate, email }) =>
+      getExcelDataApi(Format_startDate, Format_endDate, email),
     onError: (error) => {
       toast.error(error.response.data.error);
     },
     onSuccess: (res) => {
-      console.log(res);
+      toast.success(res.message);
     },
   });
 
