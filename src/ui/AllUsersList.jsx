@@ -86,7 +86,7 @@ const AllUsersList = () => {
                 <div className="flex items-center gap-4 px-2">
                   <Avatar
                     size={50}
-                    src={`${item.profile}`}
+                    src={`${item.profile || "../assets/illustration-businessman_53876-5856.jpg"}`}
                   />
                   <div>
                     <div className="text-base">{item.title}</div>
