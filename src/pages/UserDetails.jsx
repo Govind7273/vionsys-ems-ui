@@ -60,7 +60,7 @@ const UserDetails = () => {
         </div>
       </Modal>
       <ExcelForm isModalOpen={excelModal} setIsModalOpen={setexcelModal} userId={userId} />
-      <div className="relative flex  gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
+      <div className="relative flex flex-wrap md:pt-10  pt-20 gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
           <button onClick={() => setexcelModal(true)}>
             <ButtonWrapper text={""} />
@@ -75,15 +75,15 @@ const UserDetails = () => {
         <div className="text-center">
           <img
             className="w-36 h-36 rounded-md object-cover shadow-md"
-            src={userData?.profile}
-            alt="../assets/illustration-businessman_53876-5856.jpg"
+            src={userData?.profile || "../assets/illustration-businessman_53876-5856.jpg"}
+            alt="profile"
           />
           <p className="text-xl mt-4">
             {" "}
             {`${userData?.firstName} ${userData?.lastName}`}
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-x-10 gap-y-4">
+        <div className="grid md:grid-cols-3 gap-x-10 gap-y-4 md:pt-10 pt-6">
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
               Email :{" "}
@@ -106,13 +106,43 @@ const UserDetails = () => {
             <span className="text-slate-400 block dark:text-white">
               Reporting Manager :
             </span>{" "}
-            {`${userData?.reportingManager} `}
+            {userData?.reportingManager ? userData.reportingManager : 'N/A'}
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
               Team Lead :{" "}
             </span>
-            {`${userData?.teamLead}`}
+            {userData?.teamLead ? userData.teamLead : 'N/A'}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Gender :{" "}
+            </span>
+            {userData?.gender ? userData.gender : 'N/A'}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Date Of Birth :{" "}
+            </span>
+            {userData?.dob ? new Date(userData.dob).toLocaleDateString() : 'N/A'}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Address :{" "}
+            </span>
+            {userData?.address ? userData.address  : 'N/A'}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Contact Details :{" "}
+            </span>
+            {userData?.phone ? userData.phone  : 'N/A'}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Blood Group :{" "}
+            </span>
+            {userData?.bloodGroup ? userData.bloodGroup  : 'N/A'}
           </p>
         </div>
       </div>

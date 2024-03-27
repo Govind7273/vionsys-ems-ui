@@ -1,4 +1,4 @@
-export const useFormData=(firstName,lastName,email,password,passwordConfirm,employeeId,designation,teamLead,reportingManager,file)=>{
+export const useFormData=(firstName,lastName,email,password,passwordConfirm,employeeId,designation,teamLead,reportingManager,file, address, gender, bloodGroup, phone, dob)=>{
     const formData = new FormData();
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
@@ -10,5 +10,10 @@ export const useFormData=(firstName,lastName,email,password,passwordConfirm,empl
     formData.append('teamLead',teamLead);
     formData.append('reportingManager',reportingManager);
     formData.append('file', file);
+    formData.append('address',address);
+    formData.append('gender',gender);
+    formData.append('bloodGroup',bloodGroup);
+    formData.append('phone',phone);
+    formData.append('dob',dob);
     return formData;
 }
