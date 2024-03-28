@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetCurrentUser from "../features/users/useGetCurrentUser";
 import { HiTrash, HiPencil } from "react-icons/hi";
 import { LoaderIcon } from "react-hot-toast";
@@ -60,7 +60,7 @@ const UserDetails = () => {
         </div>
       </Modal>
       <ExcelForm isModalOpen={excelModal} setIsModalOpen={setexcelModal} userId={userId} />
-      <div className="relative flex flex-wrap md:pt-10  pt-20 gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
+      <div className="relative flex md:flex-row flex-col md:pt-10  pt-20 gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
           <button onClick={() => setexcelModal(true)}>
             <ButtonWrapper text={""} />
@@ -68,8 +68,8 @@ const UserDetails = () => {
           <Button className="text-red-500" onClick={showModal}>
             <HiTrash />
           </Button>
-          <Button className="text-blue-400">
-            <HiPencil />
+          <Button className="text-blue-400" onClick={()=>navigate(`/employees/update/${userId}`)}>
+              <HiPencil />
           </Button>
         </div>
         <div className="text-center">
