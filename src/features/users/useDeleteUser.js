@@ -3,7 +3,6 @@ import { deleteUserApi } from "../../services/usersApi";
 import toast from "react-hot-toast";
 
 export const useDeleteUser = () => {
-  console.log("DELETE");
   const queryClient =  useQueryClient();
   const { mutate: deleteUser, isPending } = useMutation({
     mutationFn: (userId) => deleteUserApi(userId),
