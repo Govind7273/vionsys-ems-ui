@@ -7,6 +7,7 @@ import { Button, Card, Table } from "antd";
 import getUserIdRole from "../utils/getUserIdRole";
 import { isToday, lightFormat } from "date-fns";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const { id } = getUserIdRole();
@@ -27,15 +28,19 @@ const Dashboard = () => {
   const handleAttendanceLogin = () => {
     const time = new Date().toISOString();
     if (!checkIsToday(employeesAttendance)?.length) {
+      handleCheckIn();
       createAttendance({ user: id, time, timeTag: "login" });
-    }else{
+    } else {
       toast.error("You are already checked in")
     }
   };
   const handleAttendanceLogout = () => {
     const time = new Date().toISOString();
     if (checkIsToday(employeesAttendance)?.length) {
+      handleCheckOut();
       updateAttendance({ user: id, time, timeTag: "logout" });
+    }else{
+      handleCheckOut();
     }
   };
 
@@ -78,12 +83,65 @@ const Dashboard = () => {
       workTime:
         item?.loginTime && item?.logoutTime
           ? getDateDifferenceWithFormat(
-              new Date(item?.logoutTime),
-              new Date(item?.loginTime)
-            )
+            new Date(item?.logoutTime),
+            new Date(item?.loginTime)
+          )
           : "--",
     };
   });
+
+  const [startTime, setStartTime] = useState(
+    localStorage.getItem('startTime') ? new Date(parseInt(localStorage.getItem('startTime'))).getTime(): 0
+  );
+  const [isActive, setIsActive] = useState(
+    localStorage.getItem('isActive') ? localStorage.getItem('isActive').toString():false);
+
+  useEffect(() => {
+     let interval;
+    if (isActive) {
+      interval = setInterval(() => {
+        setStartTime((prevSeconds)=>prevSeconds+1) // Convert milliseconds to seconds
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive]); // Empty dependency array ensures that effect runs only once
+
+
+  if(isActive || !startTime){
+    window.addEventListener('beforeunload',function(){
+      this.localStorage.setItem('startTime',startTime);
+    })
+  }
+
+  const handleCheckIn = () => {
+    if (!isActive) {
+      localStorage.setItem('startTime',startTime);
+      setIsActive(true);
+      localStorage.setItem('isActive',true);
+    }
+  };
+
+  const handleCheckOut = () => {
+       setStartTime(0)
+       setIsActive(false);
+       localStorage.removeItem('startTime');
+       localStorage.removeItem('isActive');
+    // if (elapsedTime >= 8 * 3600) { // 8 hours in seconds
+    //   setIsActive(false);
+    // } else {
+    //   toast.error("You can't check out until you complete 8 hours.");
+    // }
+  };
+
+  // Format the seconds into hours, minutes, and seconds
+  const formatTime = (timeInSeconds) => {
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const seconds = timeInSeconds % 60;
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  };
 
   return (
     <>
@@ -114,25 +172,41 @@ const Dashboard = () => {
                   {userData?.data?.user?.teamLead}
                 </h2>
               </div>
-              <div className="order-2 flex gap-4 flex-1 justify-center items-center">
-                <Button
-                  onClick={handleAttendanceLogin}
-                  disabled={
-                    attendanceLoading ||
-                    employeesAttendance?.data?.attendanceForDay?.loginTime
-                  }
-                >
-                  Check In
-                </Button>
-                <Button
-                  onClick={handleAttendanceLogout}
-                  disabled={
-                    updateLoading ||
-                    employeesAttendance?.data?.attendanceForDay?.logoutTime
-                  }
-                >
-                  Check Out
-                </Button>
+              <div className="order-2 flex flex-col gap-4 flex-1 justify-start items-center">
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    className={`bg-green-400 text-white ${isActive ? 'pointer-events-none opacity-50' : 'hover:bg-white hover:text-green-400 hover:border-green-400'}`}
+                    onClick={handleAttendanceLogin}
+                    disabled={
+                      attendanceLoading ||
+                      employeesAttendance?.data?.attendanceForDay?.loginTime || isActive
+                    }
+                  >
+                    Check In
+                  </Button>
+                  <Button
+                    type="button"
+                    className={`bg-red-500 text-white ${!isActive ? 'pointer-events-none opacity-50' : 'hover:bg-white hover:text-red-500 hover:border-red-500'}`}
+                    onClick={handleAttendanceLogout}
+                    disabled={
+                      updateLoading ||
+                      employeesAttendance?.data?.attendanceForDay?.logoutTime
+                    }
+                  >
+                    Check Out
+                  </Button>
+                </div>
+
+                {/* Print the timer and from that timer user may able to checkin and checkout
+                 if user is checked in then timer will start and checkout button will be disabled
+                 once the user completes 8 hours of work then and then he is able to click checkout button */}
+
+                <div>
+                  <h3>Timer: {formatTime(startTime)}</h3>
+                </div>
+
+                
               </div>
               <div className="order-3">
                 {/* <textarea
