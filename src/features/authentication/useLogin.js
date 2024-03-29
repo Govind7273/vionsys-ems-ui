@@ -9,7 +9,6 @@ const useLogin = () => {
         mutationFn: ({email,password}) => loginApi({email,password}),
         mutationKey: ["users"],
         onSuccess: (data) => {
-          console.log(data)
           localStorage.setItem("token", data.token);
           navigate("/home", {replace: true})
         },

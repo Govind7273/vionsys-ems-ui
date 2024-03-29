@@ -15,6 +15,10 @@ import AllUsersList from "./ui/AllUsersList";
 import UserDetails from "./pages/UserDetails";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPasswod from "./pages/ResetPasswod";
+import TaskPage from "./pages/TaskPage";
+import NotificationPage from "./pages/NotificationsPage";
+import LeavesHistory from "./pages/LeavesHistory";
+import LeavesPage from "./pages/LeavesPages";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,29 +44,34 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools position="bottom" buttonPosition="bottom-left" />
         <BrowserRouter>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/ResetPassword/:token" element={<ResetPasswod/>} />
-              <Route
-                element={
-                  localStorage.getItem("token") ? (
-                    <AppLayout />
-                  ) : (
-                    <Navigate to="/login" replace />
-                  )
-                }
-              >
-                <Route index element={<Navigate to="/home" />} />
-                <Route path="/home" element={<Dashboard />} />
-                <Route path="/attendance" element={<AttendanceList />} />
-                <Route path="/employees" element={<AllUsersList />} />
-                <Route path="/employees/:userId" element={<UserDetails />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
+            <Route path="/ResetPassword/:token" element={<ResetPasswod />} />
+            <Route
+              element={
+                localStorage.getItem("token") ? (
+                  <AppLayout />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            >
+              <Route index element={<Navigate to="/home" />} />
+              <Route path="/home" element={<Dashboard />} />
+              <Route path="/taskpage" element={<TaskPage />} />
+              <Route path="/notifications" element={<NotificationPage />} />
+              <Route path="/LeavesHistory" element={<LeavesHistory />} />
+              <Route path="/LeavesPage" element={<LeavesPage />} />
 
-                <Route path="*" element={<RouteNotFound />} />
-              </Route>
-            </Routes>
+              <Route path="/attendance" element={<AttendanceList />} />
+              <Route path="/employees" element={<AllUsersList />} />
+              <Route path="/employees/:userId" element={<UserDetails />} />
+              <Route path="/unauthorized" element={<Unauthorized />} />
+
+              <Route path="*" element={<RouteNotFound />} />
+            </Route>
+          </Routes>
         </BrowserRouter>
         <Toaster
           position="top-right"
