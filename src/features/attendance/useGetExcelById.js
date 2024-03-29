@@ -6,7 +6,7 @@ const useGetExcelById = () => {
   const {
     data,
     mutate: getExcelByid,
-    isPending,
+    isPending: isPending2,
   } = useMutation({
     mutationKey: "getexceldataById",
     mutationFn: ({ Format_startDate, Format_endDate, email, userId }) =>
@@ -16,14 +16,13 @@ const useGetExcelById = () => {
     },
     onSuccess: (res) => {
       toast.success(res.message);
-    
     },
   });
 
   return {
     data,
     getExcelByid,
-    isPending2: isPending,
+    isPending2,
   };
 };
 

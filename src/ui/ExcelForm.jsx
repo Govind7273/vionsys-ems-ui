@@ -69,7 +69,7 @@ const ExcelForm = ({ isModalOpen, setIsModalOpen, userId }) => {
 
           <Form.Item>
             <Button
-              disabled={isPending}
+              disabled={isPending || isPending2}
               type="primary"
               className="bg-slate-600 hover:bg-slate-500"
               htmlType="submit"

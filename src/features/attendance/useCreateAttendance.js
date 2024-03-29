@@ -10,9 +10,11 @@ const useCreateAttendance = () => {
     mutationKey: ["attendance"],
     onError: (error) => {
       toast.error(error.message);
+      console.log(error);
     },
     onSuccess: () => {
       toast.success("You are checked in. Let's work ! ");
+
       queryClient.invalidateQueries({
         queryKey: ["attendance"],
       });
