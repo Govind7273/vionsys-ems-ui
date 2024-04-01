@@ -5,6 +5,7 @@ import { FaHistory } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoNotificationsCircle } from "react-icons/io5";
 import getUserIdRole from "../utils/getUserIdRole";
+import { BsCalendarEvent } from "react-icons/bs";
 import { Link } from "react-router-dom";
 /*
 TODO:
@@ -61,6 +62,9 @@ const Sidebar = ({ isMobile }) => {
             </Button>
             <Button icon={<HiOutlineClipboardList />}>
               <Link to="/attendance">Attendance</Link>
+            </Button>
+            <Button icon={<BsCalendarEvent />}>
+              <Link to="/AdminLeavePage">Leaves Request</Link>
             </Button>
           </>
         )}

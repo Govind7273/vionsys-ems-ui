@@ -19,7 +19,9 @@ import TaskPage from "./pages/TaskPage";
 import NotificationPage from "./pages/NotificationsPage";
 import LeavesHistory from "./pages/LeavesHistory";
 import LeavesPage from "./pages/LeavesPages";
+import AdminLeavePage from "./pages/AdminLeavePage";
 import UpdateUserForm from "./pages/UpdateUserForm";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -69,6 +71,7 @@ function App() {
               <Route path="/employees/:userId" element={<UserDetails />} />
               <Route path="/employees/update/:userId" element={<UpdateUserForm />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="/AdminLeavePage" element={<AdminLeavePage />} />
 
               <Route path="*" element={<RouteNotFound />} />
             </Route>
