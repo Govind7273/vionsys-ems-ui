@@ -15,12 +15,22 @@ export const createAttendance = async ({ user, time, timeTag, note }) => {
 };
 
 export const getAttendance = async () => {
-  const response = await api.get(`/attendance/${id}`);
+  const token = localStorage.getItem("token");
+  const response = await api.get(`/attendance/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
 export const getAllAttendance = async () => {
-  const response = await api.get(`/attendance`);
+  const token = localStorage.getItem("token");
+  const response = await api.get(`/attendance`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 

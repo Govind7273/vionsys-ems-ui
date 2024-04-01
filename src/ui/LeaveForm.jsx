@@ -69,7 +69,7 @@ const LeaveForm = () => {
                 <Input
                   placeholder="Leave Days"
                   type="number"
-                  defaultValue={1}
+                  defaultValue={0}
                 />
               </Form.Item>
             )}
