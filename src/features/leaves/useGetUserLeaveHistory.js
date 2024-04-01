@@ -3,7 +3,7 @@ import { getUserLeaveHistory as getUserLeaveHistoryApi } from "../../services/le
 
 const useGetUserLeaveHistory = (userId) => {
   const { isPending, data } = useQuery({
-    queryKey: ["userLeaveHistory", userId],
+    queryKey: ["userLeaveHistory"],
     queryFn: () => getUserLeaveHistoryApi(userId),
   });
   return { isPending, data };
