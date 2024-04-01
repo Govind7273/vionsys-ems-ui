@@ -27,7 +27,7 @@ const UserAvailable = () => {
     { name: "Available", value: available },
     { name: "Unavailable", value: unAvailable},
   ];
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const COLORS = ["#87d068","#ff3333", "#FFBB28", "#FF8042"];
 
   return (
     <Card className="relative">
@@ -46,7 +46,7 @@ const UserAvailable = () => {
                     <Avatar
                       style={{
                         backgroundColor: `${
-                          item.date ? "#87d068" : "#b94331"
+                          item.date ? "#87d068" : "#ff3333"
                         }  `,
                       }}
                       alt={item.name}
