@@ -17,10 +17,13 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPasswod from "./pages/ResetPasswod";
 import TaskPage from "./pages/TaskPage";
 import NotificationPage from "./pages/NotificationsPage";
-import LeavesHistory from "./pages/LeavesHistory";
-import LeavesPage from "./pages/LeavesPages";
-import AdminLeavePage from "./pages/AdminLeavePage";
+import LeavesHistory from "./pages/leavespages/LeavesHistory";
+import LeavesPage from "./pages/leavespages/LeavesPages";
+import AdminLeavePage from "./pages/leavespages/AdminLeavePage";
 import UpdateUserForm from "./pages/UpdateUserForm";
+import UserCancleLeave from "./pages/leavespages/UserCancleLeave";
+import AdminCancleLeave from "./pages/leavespages/AdminCancleLeave";
+import UserLeaveActivity from "./pages/leavespages/UserLeaveActivity";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,11 +68,20 @@ function App() {
               <Route path="/notifications" element={<NotificationPage />} />
               <Route path="/LeavesHistory" element={<LeavesHistory />} />
               <Route path="/LeavesPage" element={<LeavesPage />} />
+              <Route path="/UserCancleLeave" element={<UserCancleLeave />} />
+              <Route path="/AdminCancleLeave" element={<AdminCancleLeave />} />
+              <Route
+                path="/UserLeaveActivity"
+                element={<UserLeaveActivity />}
+              />
 
               <Route path="/attendance" element={<AttendanceList />} />
               <Route path="/employees" element={<AllUsersList />} />
               <Route path="/employees/:userId" element={<UserDetails />} />
-              <Route path="/employees/update/:userId" element={<UpdateUserForm />} />
+              <Route
+                path="/employees/update/:userId"
+                element={<UpdateUserForm />}
+              />
               <Route path="/unauthorized" element={<Unauthorized />} />
               <Route path="/AdminLeavePage" element={<AdminLeavePage />} />
 

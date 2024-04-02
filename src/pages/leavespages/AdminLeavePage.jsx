@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import useGetLeaveRequests from "../features/leaves/useGetLeaveRequests";
+import useGetLeaveRequests from "../../features/leaves/useGetLeaveRequests";
 import { LoaderIcon } from "react-hot-toast";
 import { Button, Table, Tag } from "antd";
 import { format } from "date-fns";
-import getUserIdRole from "../utils/getUserIdRole";
+import getUserIdRole from "../../utils/getUserIdRole";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import AdminLeaveModal from "../ui/AdminLeaveModal";
+import AdminLeaveModal from "../../ui/leavesUI/AdminLeaveModal";
 
 const AdminLeavePage = () => {
   const [modalOpen, setmodalOpen] = useState(false);

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import getUserIdRole from "../utils/getUserIdRole";
-import useCreateLeaveRequest from "../features/leaves/useCreateLeaveRequest";
+import getUserIdRole from "../../utils/getUserIdRole";
+import useCreateLeaveRequest from "../../features/leaves/useCreateLeaveRequest";
 import FormItem from "antd/es/form/FormItem";
 
 const LeaveForm = () => {

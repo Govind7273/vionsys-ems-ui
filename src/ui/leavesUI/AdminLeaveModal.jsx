@@ -2,8 +2,8 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React from "react";
 import { HiXCircle } from "react-icons/hi";
-import { useApproveLeave } from "../features/leaves/useApproveLeave";
-import { useRejectLeave } from "../features/leaves/useRejectLeave";
+import { useApproveLeave } from "../../features/leaves/useApproveLeave";
+import { useRejectLeave } from "../../features/leaves/useRejectLeave";
 
 const AdminLeaveModal = (props) => {
   const { approveLeave, isPending } = useApproveLeave();

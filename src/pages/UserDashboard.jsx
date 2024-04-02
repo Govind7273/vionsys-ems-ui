@@ -26,26 +26,34 @@ const Dashboard = () => {
   };
 
   const [startTime, setStartTime] = useState();
-  const [isActive, setIsActive] = useState(localStorage.getItem("isActive") ? localStorage.getItem("isActive") : false);
+  const [isActive, setIsActive] = useState(
+    localStorage.getItem("isActive") ? localStorage.getItem("isActive") : false
+  );
 
   useEffect(() => {
     if (!tableLoading && isActive) {
       setInterval(() => {
         const currentDateData = checkIsToday(employeesAttendance);
-        const timeDifference = Math.abs(new Date().getTime() - new Date(currentDateData[0]?.loginTime)?.getTime());
+        const timeDifference = Math.abs(
+          new Date().getTime() -
+            new Date(currentDateData[0]?.loginTime)?.getTime()
+        );
         let hours = Math.floor(timeDifference / (1000 * 60 * 60));
-        let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.abs(Math.floor((timeDifference % (1000 * 60)) / 1000));
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+        let minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        let seconds = Math.abs(
+          Math.floor((timeDifference % (1000 * 60)) / 1000)
+        );
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
         const stopwatchOrTimerFormat = `${hours}:${minutes}:${seconds}`;
         setStartTime(stopwatchOrTimerFormat);
       }, 1000);
     } else {
-      setStartTime('00:00:00');
+      setStartTime("00:00:00");
     }
-
   }, [tableLoading, employeesAttendance]);
 
   const handleAttendanceLogin = () => {
@@ -106,16 +114,16 @@ const Dashboard = () => {
       workTime:
         item?.loginTime && item?.logoutTime
           ? getDateDifferenceWithFormat(
-            new Date(item?.logoutTime),
-            new Date(item?.loginTime)
-          )
+              new Date(item?.logoutTime),
+              new Date(item?.loginTime)
+            )
           : "--",
     };
   });
 
   const handleCheckIn = () => {
     if (!isActive) {
-      localStorage.setItem('isActive', true);
+      localStorage.setItem("isActive", true);
       setIsActive(true);
     }
   };
@@ -124,7 +132,7 @@ const Dashboard = () => {
     setStartTime("00:00:00");
     setIsActive(false);
     window.location.reload();
-    localStorage.removeItem('isActive');
+    localStorage.removeItem("isActive");
   };
 
   return (
@@ -161,7 +169,11 @@ const Dashboard = () => {
                   <div className="flex gap-6">
                     <Button
                       type="button"
-                      className={`bg-green-400 text-white ${isActive ? 'pointer-events-none opacity-50' : 'hover:bg-white hover:text-green-400 hover:border-green-400'}`}
+                      className={`bg-green-400 text-white ${
+                        isActive
+                          ? "pointer-events-none opacity-50"
+                          : "hover:bg-white hover:text-green-400 hover:border-green-400"
+                      }`}
                       onClick={handleAttendanceLogin}
                       disabled={
                         attendanceLoading ||
@@ -172,7 +184,11 @@ const Dashboard = () => {
                     </Button>
                     <Button
                       type="button"
-                      className={`bg-red-500 text-white ${!isActive ? 'pointer-events-none opacity-50' : 'hover:bg-white hover:text-red-500 hover:border-red-500'}`}
+                      className={`bg-red-500 text-white ${
+                        !isActive
+                          ? "pointer-events-none opacity-50"
+                          : "hover:bg-white hover:text-red-500 hover:border-red-500"
+                      }`}
                       onClick={handleAttendanceLogout}
                       disabled={
                         updateLoading ||
@@ -183,11 +199,17 @@ const Dashboard = () => {
                     </Button>
                   </div>
                   <div>
-                    <h3 className="border px-10 rounded-xl text-white bg-violet-500 py-4 text-3xl font-bold tracking-wider">{startTime}</h3>
+                    <h3 className="border px-10 rounded-xl text-white bg-violet-500 py-4 text-3xl font-bold tracking-wider">
+                      {startTime}
+                    </h3>
                   </div>
                 </div>
                 <div className="order-3">
-                  <img src={userData?.data?.user?.profile} className="w-56 h-56 object-cover rounded-2xl" alt="Profile" />
+                  <img
+                    src={userData?.data?.user?.profile}
+                    className="w-56 h-56 object-cover rounded-2xl"
+                    alt="Profile"
+                  />
                 </div>
               </div>
             )}
