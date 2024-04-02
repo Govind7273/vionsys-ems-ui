@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div className="dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800 p-4 flex justify-around">
       <div className="flex gap-6 items-center">
-        <h1 className="text-xl">Employee Management Dashboard</h1>
+        <h1 className="text-2xl font-bold">Employee Management Dashboard</h1>
       </div>
       <div className="flex gap-6 items-center">
         <h2>{role}</h2>

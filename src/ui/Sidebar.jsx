@@ -23,7 +23,7 @@ const Sidebar = ({ isMobile }) => {
         !isMobile ? "hidden" : ""
       }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800 p-4`}
     >
-      <h1 className="mb-4 text-2xl text-center">Vionsys</h1>
+      <h1 className="mb-4 text-3xl font-bold *:text-center">Vionsys</h1>
       <div className="flex flex-col gap-2">
         <Link to="/" className="flex items-center justify-center">
           <Button
