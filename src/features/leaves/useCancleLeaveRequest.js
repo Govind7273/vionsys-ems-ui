@@ -7,7 +7,8 @@ const useCancleLeaveRequest = () => {
   const query = useQueryClient();
   const { mutate: cancleRequest, isPending: ispending2 } = useMutation({
     mutationKey: ["cancleleave"],
-    mutationFn: ({ user, leaveId }) => cancleleaveApi(user, leaveId),
+    mutationFn: ({ user, leaveId, cancleReason }) =>
+      cancleleaveApi(user, leaveId, cancleReason),
     onSuccess: () => {
       toast.success("Cancle Leave Request Successfully");
       query.invalidateQueries(["leaveHistory"]);

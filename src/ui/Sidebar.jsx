@@ -97,6 +97,9 @@ const Sidebar = ({ isMobile }) => {
             <Button icon={<BsCalendarEvent />}>
               <Link to="/AdminLeavePage">Leaves Request</Link>
             </Button>
+            <Button icon={<BsCalendarEvent />}>
+              <Link to="/AdminCancleLeave">Cancel Leaves</Link>
+            </Button>
           </>
         )}
       </div>
