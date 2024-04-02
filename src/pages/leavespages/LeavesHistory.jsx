@@ -1,33 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import UserLeaveHistory from "../../ui/leavesUI/UserLeaveHistory";
 import useGetUserLeaveHistory from "../../features/leaves/useGetUserLeaveHistory";
 import getUserIdRole from "../../utils/getUserIdRole";
 import { LoaderIcon } from "react-hot-toast";
 import { format } from "date-fns";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { Button, Tag } from "antd";
+import { MdOutlineCancel } from "react-icons/md";
+import { Button, Form, Input, Modal, Tag } from "antd";
 import useCancleLeaveRequest from "../../features/leaves/useCancleLeaveRequest";
+import { HiXCircle } from "react-icons/hi";
 
 const LeavesHistory = () => {
   const { id } = getUserIdRole();
-  const { cancleRequest } = useCancleLeaveRequest();
   const { data, isPending } = useGetUserLeaveHistory(id);
+  const { cancleRequest } = useCancleLeaveRequest();
   const userleave = data?.userAllLeaves[0]?.leaves;
-  const handleCancelLeave = (user, record) => {
-    const leaveId = record?._id;
+  const [leaveUser, setleaveUser] = useState("");
+  const [leaveId, setleaveId] = useState("");
+  const [modal, setmodal] = useState(false);
+  const [cancleReason, setcancleReason] = useState("");
 
-    cancleRequest(
-      { user, leaveId },
-      {
-        onSuccess: (res) => {
-          console.log(res);
-        },
-        onError: (err) => {
-          console.log(err);
-        },
-      }
-    );
+  const handleCancelLeave = (user, record) => {
+    setmodal(true);
+    setleaveUser(user);
+    setleaveId(record?._id);
   };
+
+  const handleCancelLeaveSumbit = () => {
+    cancleRequest({ user: leaveUser, leaveId, cancleReason });
+  };
+
   const columns = [
     {
       title: "Leave Type",
@@ -113,7 +114,7 @@ const LeavesHistory = () => {
       key: "user",
       render: (user, record) => (
         <Button
-          icon={<FaRegTrashAlt />}
+          icon={<MdOutlineCancel size={25} />}
           onClick={() => handleCancelLeave(user, record)}
         />
       ),
@@ -121,8 +122,25 @@ const LeavesHistory = () => {
   ];
 
   return (
-    <main>
+    <main className="p-5">
       {isPending && <LoaderIcon />}
+
+      <Modal
+        title="Cancle Leave Request"
+        open={modal}
+        footer={false}
+        closeIcon={<HiXCircle size={25} onClick={() => setmodal(false)} />}
+      >
+        <h1 className="text-red-700">
+          Do you really want to cancle this leave request ?
+        </h1>
+        <Input
+          onChange={(e) => setcancleReason(e.target.value)}
+          value={cancleReason}
+          placeholder="Reason"
+        />
+        <Button onClick={handleCancelLeaveSumbit}>Cancle Leave</Button>
+      </Modal>
 
       <div style={{ overflowX: "auto" }}>
         <UserLeaveHistory userleave={userleave} columns={columns} />

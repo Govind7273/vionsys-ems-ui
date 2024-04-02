@@ -116,7 +116,7 @@ const AdminLeavePage = () => {
   };
 
   return (
-    <div>
+    <div className="p-5">
       <AdminLeaveModal
         modalOpen={modalOpen}
         setmodalOpen={setmodalOpen}

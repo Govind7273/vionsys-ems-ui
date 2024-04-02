@@ -84,6 +84,7 @@ function App() {
               />
               <Route path="/unauthorized" element={<Unauthorized />} />
               <Route path="/AdminLeavePage" element={<AdminLeavePage />} />
+              <Route path="/AdminCancleLeave" element={<AdminCancleLeave />} />
 
               <Route path="*" element={<RouteNotFound />} />
             </Route>

@@ -28,10 +28,10 @@ export const getleavehistory = async () => {
   return response.data;
 };
 
-export const cancleleave = async (user, leaveId) => {
+export const cancleleave = async (user, leaveId, cancleReason) => {
   const response = await api.post(
     `/leaves/cancel/${leaveId}`,
-    { user },
+    { user, cancleReason },
     {
       headers: {
         Authorization: `Bearer ${token}`,
