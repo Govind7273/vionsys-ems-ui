@@ -8,7 +8,7 @@ const AdminDashboard = () => {
     <div className="p-8 grid md:grid-cols-3 gap-2">
       <UserAvailable/>
       <Notifications />
-      <Card />
+      {/* <Card /> */}
     </div>
   );
 };

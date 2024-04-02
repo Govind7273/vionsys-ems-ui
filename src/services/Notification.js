@@ -10,7 +10,6 @@ export const createNotification=async(values)=>{
 
 export const getNotifications=async()=>{
    const response=await api.get("/notification/get");
-   console.log(response.data.notifications)
    return response?.data;
 }
 
