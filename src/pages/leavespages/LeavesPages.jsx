@@ -1,5 +1,5 @@
 import React from "react";
-import LeaveForm from "../ui/LeaveForm";
+import LeaveForm from "../../ui/leavesUI/LeaveForm";
 
 const LeavesPages = () => {
   return (
