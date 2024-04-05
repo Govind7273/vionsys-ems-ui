@@ -5,8 +5,7 @@ import toast from "react-hot-toast";
 const useSignup = () => {
   const queryClient = useQueryClient();
   const { mutate: signup, isPending } = useMutation({
-    mutationFn: (values) =>
-      signupApi(values),
+    mutationFn: (values) => signupApi(values),
     onSuccess: () => {
       toast.success("User created successfully");
       queryClient.invalidateQueries({
@@ -14,7 +13,7 @@ const useSignup = () => {
       });
     },
     onError: (err) => {
-      toast.error(err.response.data.message);
+      toast.error(err.response.data.error);
     },
   });
   return {

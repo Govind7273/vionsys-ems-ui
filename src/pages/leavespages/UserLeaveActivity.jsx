@@ -8,6 +8,8 @@ import { PiBagLight } from "react-icons/pi";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { GoHourglass, GoThumbsdown, GoThumbsup } from "react-icons/go";
 import { MdOutlineSick } from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
+import { FaRegCalendarTimes } from "react-icons/fa";
 
 const UserLeaveActivity = () => {
   const { id } = getUserIdRole();
@@ -22,21 +24,18 @@ const UserLeaveActivity = () => {
               <h2 className="text-xl font-bold">User Leave Balance</h2>
             </div>
             {/* available_leave_sections --- start*/}
+
             <section className="available_leave_section grid grid-cols-3 md:grid-cols-3 gap-3 w-full p-5">
               <div className="md:border-r w-full ">
                 <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#9AEFCA]"><FaRegClipboard size={40} /></span>
                   <div><p className="min-w-[5rem] text-black opacity-70 text-xl">Available Leaves</p>
                   <p className="text-4xl">
+
                     {leavecount?.floaterleave +
-                    leavecount?.privilageleave +
-                    leavecount?.sickleave +
-                    leavecount?.casualleave
-                      ? leavecount?.floaterleave +
-                        leavecount?.privilageleave +
-                        leavecount?.sickleave +
-                        leavecount?.casualleave
-                      : "0"}
+                      leavecount?.privilageleave +
+                      leavecount?.sickleave +
+                      leavecount?.casualleave}
                   </p>
                   </div>
                 </span>
@@ -52,6 +51,7 @@ const UserLeaveActivity = () => {
                  </div>
                 </span>
               </div>
+
               <div className="md:border-r  w-full">
                 <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#D1B5F0]"><ImStarEmpty size={40} /></span>
@@ -95,8 +95,10 @@ const UserLeaveActivity = () => {
             <div className="w-full flex p-2">
               <h2 className="text-xl font-bold">User Leave Activity</h2>
             </div>
+
             <section className="available_leave_section grid grid-cols-2 md:grid-cols-4 gap-3 w-full bg-white p-6">
               <div className="md:border-r w-full ">
+
                 <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
                   <span className="rounded-full p-3 bg-[#a3e635]"><FaRegClipboard size={40} /></span>
                   <p className="min-w-[5rem] text-black opacity-70 text-xl">Total Leaves</p>
@@ -124,6 +126,20 @@ const UserLeaveActivity = () => {
                   <span className="rounded-full p-3 bg-[#ef4444]"><GoThumbsdown size={40} /></span>
                   <p className="opacity-70 text-xl">Rejected Leaves</p>
                   <p className="text-4xl">{leavecount?.rejectedLeaves}</p>
+                </span>
+              </div>
+              <div className=" w-full bg-[#FF8E8F]">
+                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
+                  <MdOutlineCancel size={30} />
+                  <p className="text-xl">Cancelled Leaves</p>
+                  <p>{leavecount?.cancelledLeaves}</p>
+                </span>
+              </div>
+              <div className=" w-full bg-gray-300">
+                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
+                  <FaRegCalendarTimes size={30} />
+                  <p className="text-xl">Expired Leaves</p>
+                  <p>{leavecount?.expiredLeaves}</p>
                 </span>
               </div>
             </section>

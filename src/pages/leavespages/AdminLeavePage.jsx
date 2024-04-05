@@ -110,6 +110,9 @@ const AdminLeavePage = () => {
       });
     });
   });
+  const sorteduserLeaves = dataSource?.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
   const handleCancelLeave = (record) => {
     setleavedata(record);
     setmodalOpen(true);
@@ -123,7 +126,7 @@ const AdminLeavePage = () => {
         leavedata={leavedata}
       />
       {isPending && <LoaderIcon />}
-      {AllLeaves && <Table columns={columns} dataSource={dataSource} />}
+      {AllLeaves && <Table columns={columns} dataSource={sorteduserLeaves} />}
     </div>
   );
 };

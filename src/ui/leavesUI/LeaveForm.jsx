@@ -1,11 +1,14 @@
 import { Button, Checkbox, Form, Input, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import getUserIdRole from "../../utils/getUserIdRole";
 import useCreateLeaveRequest from "../../features/leaves/useCreateLeaveRequest";
 import FormItem from "antd/es/form/FormItem";
+import { DatePicker, Space } from "antd";
+import React from "react";
+const { RangePicker } = DatePicker;
 
 const LeaveForm = () => {
   const floaterDays = [
@@ -17,6 +20,7 @@ const LeaveForm = () => {
   const { data, createRequest, isPending } = useCreateLeaveRequest();
   const { id: userId } = getUserIdRole();
   const { TextArea } = Input;
+  const [leaveDays, setLeaveDays] = useState(0);
   const [dateRange, setDateRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -28,26 +32,39 @@ const LeaveForm = () => {
     const { startDate, endDate } = dateRange;
     const leaveStart = startDate.toISOString();
     const leaveEnd = endDate.toISOString();
+    values.leaveDays = leaveDays;
     const data = { userId, leaveStart, leaveEnd, ...values };
     console.log(data);
     createRequest(data);
   };
 
+  useEffect(() => {
+    const actualLeaveDays = Math.ceil(
+      (new Date(dateRange?.endDate).getTime() -
+        new Date(dateRange?.startDate).getTime()) /
+        (1000 * 60 * 60 * 24) +
+        1
+    );
+
+    setLeaveDays(actualLeaveDays);
+  }, [dateRange]);
   const handleLeaveTypeChange = (value) => {
     setSelectedLeaveType(value); // Update selected leave type
   };
 
   return (
-    <div className="mt-12">
-      <h1 className="p-4 mt-3">Vionsys Leave Request Form</h1>
-      <p>Incase of one day leave just select start date</p>
+    <div className=" bg-white p-5 rounded-md">
+      <h1 className="text-xl font-bold">Vionsys Leave Request Form</h1>
+      <p className="p-2">Incase of one day leave just select start date</p>
       <div title="leave Form" visible={true} footer={false}>
-        <div className="Date_Picker">
-          <DateRangePicker
-            ranges={[dateRange]}
-            onChange={(ranges) => setDateRange(ranges.selection)}
-            minDate={new Date()}
-          />
+        <div className="flex w-full">
+          <Space direction="vertical" size={20}>
+            <RangePicker
+              onChange={(e) =>
+                setDateRange({ startDate: e[0].$d, endDate: e[1].$d })
+              }
+            />
+          </Space>
         </div>
         <Form
           name="myForm"
@@ -62,14 +79,12 @@ const LeaveForm = () => {
                 label="Enter Leave Days"
                 name="leaveDays"
                 className="w-full"
-                rules={[
-                  { required: true, message: "Please enter total Leave Days" },
-                ]}
               >
                 <Input
                   placeholder="Leave Days"
                   type="number"
-                  defaultValue={0}
+                  defaultValue={leaveDays ? leaveDays : 0}
+                  disabled={true}
                 />
               </Form.Item>
             )}
