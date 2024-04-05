@@ -7,7 +7,7 @@ import { useFormData } from "../features/users/useFormData";
 
 const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
   const [file, setFile] = useState();
-  const bloodGroups=['A+','A-','B+','B-','O+','O-','AB+','AB-'];
+  const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
   const { Option } = Select;
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -15,7 +15,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
   const { signup, isPending } = useSignup();
 
   const onFinish = (values) => {
-    const { firstName, lastName, email, password, passwordConfirm, employeeId, designation, teamLead, reportingManager,address,gender,bloodGroup,phone,dob } = values;
+    const { firstName, lastName, email, password, passwordConfirm, employeeId, designation, teamLead, reportingManager, address, gender, bloodGroup, phone, dob } = values;
     const form = useFormData(firstName, lastName, email, password, passwordConfirm, employeeId, designation, teamLead, reportingManager, file, address, gender, bloodGroup, phone, dob);
     signup(form, {
       onSettled: () => {
@@ -96,7 +96,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
 
           {/* address and blood group and gender section or div */}
           <div className="flex flex-wrap gap-x-4">
-          <Form.Item
+            <Form.Item
               label="Address"
               name="address"
               className="flex-1"
@@ -113,9 +113,9 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
             >
               <Select >
                 {
-                 bloodGroups.map((bld,index)=>(
-                   <Option key={index} value={`${bld}`}>{bld}</Option>
-                 ))
+                  bloodGroups.map((bld, index) => (
+                    <Option key={index} value={`${bld}`}>{bld}</Option>
+                  ))
                 }
               </Select>
             </Form.Item>
@@ -127,17 +127,17 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
               rules={[{ required: true, message: "Please select the gender" }]}
             >
               <Select >
-                   <Option value="Male">Male</Option>
-                   <Option value="Female">Female</Option>
-                   <Option value="Other">Other</Option>
+                <Option value="Male">Male</Option>
+                <Option value="Female">Female</Option>
+                <Option value="Other">Other</Option>
               </Select>
             </Form.Item>
           </div>
 
 
-         {/* phone number and date of birth */}
+          {/* phone number and date of birth */}
           <div className="flex flex-wrap gap-x-4">
-          <Form.Item
+            <Form.Item
               label="Contact Number"
               name="phone"
               className="flex-1"
@@ -152,7 +152,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
               className="flex-1"
               rules={[{ required: true, message: "Please enter employee date of birth" }]}
             >
-              <Input placeholder="Date of Birth" type="Date"  />
+              <Input placeholder="Date of Birth" type="Date" />
             </Form.Item>
           </div>
 
@@ -162,7 +162,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
               label="Password"
               name="password"
               className="flex-1"
-              rules={[{ required: true, message: "Please enter your password" }]}
+              rules={[{ required: true, message: "Please enter your password" }, { min: 8 }]}
             >
               <Input placeholder="Password" type="password" />
             </Form.Item>
