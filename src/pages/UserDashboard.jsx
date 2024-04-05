@@ -7,10 +7,13 @@ import useCreateAttendance from "../features/attendance/useCreateAttendance";
 import useGetCurrentUser from "../features/users/useGetCurrentUser";
 import getUserIdRole from "../utils/getUserIdRole";
 import getDateDifferenceWithFormat from "../utils/getDateDifferenceWithFormat";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
+import { GoVerified } from "react-icons/go";
+import sendverifymail from "../features/authentication/useVerifyMail";
 
 const Dashboard = () => {
   const { id } = getUserIdRole();
+  const { sendmail, isPending } = sendverifymail();
   const { data: employeesAttendance, isPending: tableLoading } =
     useGetAttendance();
   const { updateAttendance, isPending: updateLoading } = useUpdateAttendance();
@@ -135,6 +138,9 @@ const Dashboard = () => {
     localStorage.removeItem("isActive");
   };
 
+  const handleSendVerifyEmail = (email) => {
+    sendmail(email);
+  };
   return (
     <>
       <div className="p-4 w-full flex flex-col gap-4">
@@ -163,6 +169,22 @@ const Dashboard = () => {
                   <h2>
                     <span className="text-slate-500">Team Lead: </span>
                     {userData?.data?.user?.teamLead}
+                  </h2>
+                  <h2>
+                    <span className="">
+                      {userData?.data?.user?.isVerified ? (
+                        <GoVerified size={30} color="green" />
+                      ) : (
+                        <button
+                          onClick={() =>
+                            handleSendVerifyEmail(userData?.data?.user?.email)
+                          }
+                          className="border border-black p-1 rounded-md m-2 "
+                        >
+                          {!isPending ? "Verify Email" : "sending mail..."}
+                        </button>
+                      )}
+                    </span>
                   </h2>
                 </div>
                 <div className="order-2 flex flex-col gap-4 flex-1 justify-start items-center">

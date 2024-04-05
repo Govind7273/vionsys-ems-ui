@@ -24,7 +24,9 @@ import UpdateUserForm from "./pages/UpdateUserForm";
 import UserCancleLeave from "./pages/leavespages/UserCancleLeave";
 import AdminCancleLeave from "./pages/leavespages/AdminCancleLeave";
 import UserLeaveActivity from "./pages/leavespages/UserLeaveActivity";
+import VerifyMail from "./pages/VerifyMail";
 import CreateTaskForm from "./pages/taskpages/CreateTaskForm";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,6 +56,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/ForgotPassword" element={<ForgotPassword />} />
             <Route path="/ResetPassword/:token" element={<ResetPasswod />} />
+            <Route path="/VerifyMail/:token" element={<VerifyMail />} />
             <Route
               element={
                 localStorage.getItem("token") ? (

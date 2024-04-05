@@ -31,10 +31,10 @@ export const logout = () => {
 };
 
 export const signup = async (values) => {
-  const response = await api.post("/signup", values,{
-    headers:{
-      "Content-Type":"multipart/form-data"
-    }
+  const response = await api.post("/signup", values, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
   return response.data;
 };
@@ -45,14 +45,52 @@ export const getCurrentUser = async (userId) => {
 };
 
 export const ForgotPassword = async (email) => {
-  const responce = await api.post("/forgotPassword", { email });
+  const responce = await api.post(
+    "/forgotPassword",
+    { email },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return responce;
 };
 
-export const ResetPassword = async ( password, passwordConfirm, token ) => {
-  const responce = await api.patch(`/resetPassword/${token}`, {
-    password,
-    passwordConfirm,
+export const ResetPassword = async (password, passwordConfirm, token) => {
+  const responce = await api.patch(
+    `/resetPassword/${token}`,
+    {
+      password,
+      passwordConfirm,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return responce;
+};
+
+export const sendverifymail = async (email) => {
+  const responce = await api.post(
+    "/sendverifyMail",
+    { email },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return responce;
+};
+
+export const verifyMail = (token) => {
+  const responce = api.post(`/verifyMail/${token}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-  return responce
+  return responce;
 };

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import UserLeaveHistory from "../../ui/leavesUI/UserLeaveHistory";
 import useGetUserLeaveHistory from "../../features/leaves/useGetUserLeaveHistory";
 import getUserIdRole from "../../utils/getUserIdRole";
-import { LoaderIcon } from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { format } from "date-fns";
 import { MdOutlineCancel } from "react-icons/md";
 import { Button, Form, Input, Modal, Tag } from "antd";
@@ -14,6 +14,10 @@ const LeavesHistory = () => {
   const { data, isPending } = useGetUserLeaveHistory(id);
   const { cancleRequest } = useCancleLeaveRequest();
   const userleave = data?.userAllLeaves[0]?.leaves;
+  const sorteduserLeaves = userleave?.sort(
+    (a, b) => new Date(b?.date) - new Date(a?.date)
+  );
+  console.log(sorteduserLeaves?.length);
   const [leaveUser, setleaveUser] = useState("");
   const [leaveId, setleaveId] = useState("");
   const [modal, setmodal] = useState(false);
@@ -26,6 +30,10 @@ const LeavesHistory = () => {
   };
 
   const handleCancelLeaveSumbit = () => {
+    if (!cancleReason) {
+      toast.error("please provide the leave cancle reason");
+      return;
+    }
     cancleRequest({ user: leaveUser, leaveId, cancleReason });
   };
 
@@ -131,19 +139,28 @@ const LeavesHistory = () => {
         footer={false}
         closeIcon={<HiXCircle size={25} onClick={() => setmodal(false)} />}
       >
-        <h1 className="text-red-700">
-          Do you really want to cancle this leave request ?
-        </h1>
-        <Input
-          onChange={(e) => setcancleReason(e.target.value)}
-          value={cancleReason}
-          placeholder="Reason"
-        />
-        <Button onClick={handleCancelLeaveSumbit}>Cancle Leave</Button>
+        <div className="flex flex-col gap-3">
+          <h1 className="text-red-700">
+            Do you really want to cancle this leave request ?
+          </h1>
+          <Input
+            onChange={(e) => setcancleReason(e.target.value)}
+            value={cancleReason}
+            placeholder="Reason"
+          />
+          <Button
+            type="primary"
+            danger
+            className="text-red-600 hover:bg-red-600 hover:text-white"
+            onClick={handleCancelLeaveSumbit}
+          >
+            Cancle Leave
+          </Button>
+        </div>
       </Modal>
 
       <div style={{ overflowX: "auto" }}>
-        <UserLeaveHistory userleave={userleave} columns={columns} />
+        <UserLeaveHistory userleave={sorteduserLeaves} columns={columns} />
       </div>
     </main>
   );
