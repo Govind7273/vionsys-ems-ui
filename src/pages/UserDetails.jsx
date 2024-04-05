@@ -2,11 +2,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetCurrentUser from "../features/users/useGetCurrentUser";
 import { HiTrash, HiPencil } from "react-icons/hi";
 import { LoaderIcon } from "react-hot-toast";
-import { Button, Modal } from "antd";
+import { Button, Modal, Popover } from "antd";
 import { useId, useState } from "react";
 import { useDeleteUser } from "../features/users/useDeleteUser";
 import ExcelForm from "../ui/ExcelForm";
-import ButtonWrapper from "../ui/NeumoBtn";
+import { BiTask } from "react-icons/bi";
+import { RiFileExcel2Line } from "react-icons/ri";
 
 const UserDetails = () => {
   const { userId } = useParams();
@@ -66,18 +67,24 @@ const UserDetails = () => {
       />
       <div className="relative flex md:flex-row flex-col md:pt-10  pt-20 gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
-          <button onClick={() => setexcelModal(true)}>
-            <ButtonWrapper text={""} />
-          </button>
-          <Button className="text-red-500" onClick={showModal}>
-            <HiTrash />
-          </Button>
-          <Button
-            className="text-blue-400"
-            onClick={() => navigate(`/employees/update/${userId}`)}
-          >
-            <HiPencil />
-          </Button>
+
+          <Popover placement="topRight" title="Assign Task"><Button onClick={()=>navigate(`/employee/task/${userId}`)} className="flex justify-center items-center gap-2 text-yellow-800"><BiTask /></Button></Popover>
+          <Popover placement="topRight" title="Get Attendance Excel">
+            <Button type="default" className="text-[#217346]" onClick={() => setexcelModal(true)}>
+              <RiFileExcel2Line />
+            </Button>
+          </Popover>
+          <Popover placement="topRight" title="Delete Employee">
+            <Button className="text-red-500" onClick={showModal}>
+              <HiTrash />
+            </Button>
+          </Popover>
+          <Popover placement="topRight" title="Update Employee">
+            <Button className="text-blue-400" onClick={() => navigate(`/employees/update/${userId}`)}>
+              <HiPencil />
+            </Button>
+          </Popover>
+
         </div>
         <div className="text-center">
           <img
@@ -142,19 +149,25 @@ const UserDetails = () => {
             <span className="text-slate-400 block dark:text-white">
               Address :{" "}
             </span>
-            {userData?.address ? userData.address : "N/A"}
+
+            {userData?.address ? userData.address : 'N/A'}
+
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
               Contact Details :{" "}
             </span>
-            {userData?.phone ? userData.phone : "N/A"}
+
+            {userData?.phone ? userData.phone : 'N/A'}
+
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
               Blood Group :{" "}
             </span>
-            {userData?.bloodGroup ? userData.bloodGroup : "N/A"}
+
+            {userData?.bloodGroup ? userData.bloodGroup : 'N/A'}
+
           </p>
         </div>
       </div>

@@ -1,10 +1,10 @@
 import { LoaderIcon } from "react-hot-toast";
-import { Table } from "antd";
+import { Button, Popover, Table } from "antd";
 import useGetAllAttendance from "../features/attendance/useGetAllAttendance";
 import withAuth from "../store/withAuth";
 import { format, parseISO } from "date-fns";
 import getDateDifferenceWithFormat from "../utils/getDateDifferenceWithFormat";
-import ButtonWrapper from "./NeumoBtn";
+import { RiFileExcel2Line } from "react-icons/ri";
 import ExcelForm from "./ExcelForm";
 import { useState } from "react";
 
@@ -82,13 +82,15 @@ const AttendanceList = () => {
   });
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-white">
       <ExcelForm isModalOpen={modal} setIsModalOpen={setmodal} />
       <div className="flex justify-between p-4">
         <h2 className="text-xl py-4 ">Attendance List : </h2>
-        <button onClick={() => setmodal(true)}>
-          <ButtonWrapper text={"Export as Excel"} />
-        </button>
+        <Popover placement="topLeft" title="Get Excel" style={{ width: '100px' }}>
+        <Button className="text-[#217346] bg-white shadow-md" onClick={() => setmodal(true)}>
+        <RiFileExcel2Line  />
+        </Button>
+        </Popover>
       </div>
       {isPending && <LoaderIcon />}
       <Table

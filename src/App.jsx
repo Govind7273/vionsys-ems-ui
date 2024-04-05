@@ -15,7 +15,7 @@ import AllUsersList from "./ui/AllUsersList";
 import UserDetails from "./pages/UserDetails";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPasswod from "./pages/ResetPasswod";
-import TaskPage from "./pages/TaskPage";
+import TaskPage from "./pages/taskpages/TaskPage";
 import NotificationPage from "./pages/NotificationsPage";
 import LeavesHistory from "./pages/leavespages/LeavesHistory";
 import LeavesPage from "./pages/leavespages/LeavesPages";
@@ -25,6 +25,8 @@ import UserCancleLeave from "./pages/leavespages/UserCancleLeave";
 import AdminCancleLeave from "./pages/leavespages/AdminCancleLeave";
 import UserLeaveActivity from "./pages/leavespages/UserLeaveActivity";
 import VerifyMail from "./pages/VerifyMail";
+import CreateTaskForm from "./pages/taskpages/CreateTaskForm";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -80,6 +82,7 @@ function App() {
               <Route path="/attendance" element={<AttendanceList />} />
               <Route path="/employees" element={<AllUsersList />} />
               <Route path="/employees/:userId" element={<UserDetails />} />
+              <Route path="/employee/task/:userId" element={<CreateTaskForm />} />
               <Route
                 path="/employees/update/:userId"
                 element={<UpdateUserForm />}
