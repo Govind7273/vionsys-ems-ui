@@ -14,7 +14,7 @@ const AdminCancleLeave = () => {
   const AllLeaves = data?.AllLeaves;
   AllLeaves?.forEach((leave) => {
     leave?.leaves?.forEach((leaveData) => {
-      dataSource?.push({
+      dataSource?.unshift({
         key: leaveData?._id,
         email: leave?.email,
         ...leaveData,
@@ -24,6 +24,10 @@ const AdminCancleLeave = () => {
 
   const CancledLeaves = dataSource?.filter(
     (leave) => leave?.leaveStatus == "Cancelled"
+  );
+
+  const sorteduserLeaves = CancledLeaves?.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   const columns = [
@@ -98,7 +102,9 @@ const AdminCancleLeave = () => {
   return (
     <div className="p-5">
       {isPending && <LoaderIcon />}
-      {data && <UserLeaveHistory userleave={CancledLeaves} columns={columns} />}
+      {data && (
+        <UserLeaveHistory userleave={sorteduserLeaves} columns={columns} />
+      )}
     </div>
   );
 };

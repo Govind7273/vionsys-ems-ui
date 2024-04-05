@@ -13,7 +13,7 @@ const UserCancleLeave = () => {
   const CancledLeaves = allLeaves?.filter(
     (leave) => leave?.leaveStatus == "Cancelled"
   );
-  console.log(CancledLeaves);
+
   const columns = [
     {
       title: "Leave Type",
