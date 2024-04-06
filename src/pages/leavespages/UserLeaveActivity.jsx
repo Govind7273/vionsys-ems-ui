@@ -21,17 +21,16 @@ const UserLeaveActivity = () => {
         userleavecount.map((leavecount, index) => (
           <section key={index} className="p-5 bg-slate-200 h-[100vh]">
             <div className="w-full flex p-2">
-              <h2 className="text-xl font-bold">User Leave Balance</h2>
+              <h2 className="text-xl font-bold text-[#374151]">User Leave Balance</h2>
             </div>
             {/* available_leave_sections --- start*/}
 
-            <section className="available_leave_section grid grid-cols-3 md:grid-cols-3 gap-3 w-full p-5">
+            <section className="available_leave_section grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full p-5">
               <div className="md:border-r w-full ">
                 <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#9AEFCA]"><FaRegClipboard size={40} /></span>
                   <div><p className="min-w-[5rem] text-black opacity-70 text-xl">Available Leaves</p>
                   <p className="text-4xl">
-
                     {leavecount?.floaterleave +
                       leavecount?.privilageleave +
                       leavecount?.sickleave +
@@ -40,6 +39,7 @@ const UserLeaveActivity = () => {
                   </div>
                 </span>
               </div>
+
               <div className="md:border-r  w-full">
                 <span className="flex justify-center gap-4 h-[10rem] text-center items-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#FBC950]"><BsCalendar4Event size={40} /></span>
@@ -61,6 +61,7 @@ const UserLeaveActivity = () => {
                   </div>
                 </span>
               </div>
+
               <div className="md:border-r  w-full">
                 <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                 <span className="rounded-full p-3 bg-[#C9EF9A]"><MdOutlineSick size={40} /></span>
@@ -70,7 +71,8 @@ const UserLeaveActivity = () => {
                   </div>
                 </span>
               </div>
-              <div className="md:border-r   w-full">
+
+              <div className="md:border-r w-full">
                 <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                 <span className="rounded-full p-3 bg-[#AFBF9A]"><PiBagLight size={40} /></span>
                   <div className="p-1">
@@ -79,6 +81,7 @@ const UserLeaveActivity = () => {
                   </div>
                 </span>
               </div>
+
               <div className=" w-full">
                 <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                 <span className="rounded-full p-3 bg-[#F5B8CF]"><LiaRupeeSignSolid size={40} /></span>
@@ -92,54 +95,68 @@ const UserLeaveActivity = () => {
             {/* available_leave_sections --- ends*/}
 
             {/* user leave activity --- start*/}
-            <div className="w-full flex p-2">
-              <h2 className="text-xl font-bold">User Leave Activity</h2>
+            <div className="w-full flex p-2"> 
+              <h2 className="text-xl font-bold text-[#374151]">User Leave Activity</h2>
             </div>
 
-            <section className="available_leave_section grid grid-cols-2 md:grid-cols-4 gap-3 w-full bg-white p-6">
-              <div className="md:border-r w-full ">
-
-                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
+            <section className="available_leave_section grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full  p-5">
+              <div className=" ">
+                <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#a3e635]"><FaRegClipboard size={40} /></span>
-                  <p className="min-w-[5rem] text-black opacity-70 text-xl">Total Leaves</p>
+                  <div className="p-5">
+                  <p className="flex items-center justify-center text-black opacity-70 text-xl">Total Leaves</p>
                   <p className="text-4xl">{leavecount?.totalLeaves}</p>
+                  </div>
                 </span>
               </div>
-              <div className="md:border-r  w-full">
-                <span className="flex flex-col justify-center gap-2 h-[10rem] text-center items-center">
+
+              <div className="">
+                <span className="flex justify-center gap-4 h-[10rem] text-center items-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#d946ef]"><GoHourglass size={40} /></span>
-                  <p className="flex items-center justify-center opacity-70 text-xl">
-                    Pending Leaves
-                  </p>
+                  <div>
+                  <p className="flex items-center justify-center text-black opacity-70 text-xl">Pending Leaves</p>
                   <p className="text-4xl">{leavecount?.pendingLeaves}</p>
+                  </div>
                 </span>
               </div>
-              <div className="md:border-r   w-full">
-                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center text-black">
+
+              <div className="">
+                <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#14b8a6]"><GoThumbsup size={40} /></span>
-                  <p className="opacity-70 text-xl">Approved Leaves</p>
+                  <div>
+                  <p className="flex items-center justify-center text-black opacity-70 text-xl">Approved Leaves</p>
                   <p className="text-4xl">{leavecount?.approvedLeaves}</p>
+                  </div>
                 </span>
               </div>
-              <div className=" w-full ">
-                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
+
+              <div className="">
+                <span className="flex justify-center gap-4 h-[10rem] items-center text-center bg-white rounded-lg text-black">
                   <span className="rounded-full p-3 bg-[#ef4444]"><GoThumbsdown size={40} /></span>
-                  <p className="opacity-70 text-xl">Rejected Leaves</p>
+                  <div>
+                  <p className="flex items-center justify-center text-black opacity-70 text-xl">Rejected Leaves</p>
                   <p className="text-4xl">{leavecount?.rejectedLeaves}</p>
+                  </div>
                 </span>
               </div>
-              <div className=" w-full bg-[#FF8E8F]">
-                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
-                  <MdOutlineCancel size={30} />
-                  <p className="text-xl">Cancelled Leaves</p>
-                  <p>{leavecount?.cancelledLeaves}</p>
+
+              <div className="">
+                <span className="flex justify-center gap-2 h-[10rem] items-center text-center bg-white rounded-lg text-black">
+                  <span className="rounded-full p-3 bg-[#ef4444]"><MdOutlineCancel size={40}/></span>
+                  <div>
+                  <p className="flex items-center justify-center text-black opacity-70 text-xl">Cancelled Leaves</p>
+                  <p className="text-4xl">{leavecount?.cancelledLeaves}</p>
+                  </div>
                 </span>
               </div>
-              <div className=" w-full bg-gray-300">
-                <span className="flex flex-col justify-center gap-2 h-[10rem] items-center text-center">
-                  <FaRegCalendarTimes size={30} />
-                  <p className="text-xl">Expired Leaves</p>
-                  <p>{leavecount?.expiredLeaves}</p>
+
+              <div className="">
+                <span className="flex justify-center gap-2 h-[10rem] items-center text-center bg-white">
+                  <span  className="rounded-full p-3 bg-[#ef4444]"><FaRegCalendarTimes size={40}/></span>
+                  <div className="p-4">
+                  <p className="flex items-center justify-center text-black opacity-70 text-xl">Expired Leaves</p>
+                  <p className="text-4xl">{leavecount?.expiredLeaves}</p>
+                  </div>
                 </span>
               </div>
             </section>
