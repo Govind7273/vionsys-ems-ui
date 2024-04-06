@@ -16,7 +16,7 @@ export const createAttendance = async ({ user, time, timeTag, note }) => {
 
 export const getAttendance = async () => {
   const token = localStorage.getItem("token");
-  const response = await api.get(`/attendance/${id}`, {
+  const response = await api.get(`/attendance/find/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -26,7 +26,7 @@ export const getAttendance = async () => {
 
 export const getAllAttendance = async () => {
   const token = localStorage.getItem("token");
-  const response = await api.get(`/attendance`, {
+  const response = await api.get(`/attendance/get`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -38,7 +38,7 @@ export const updateAttendanceApi = async ({ time, timeTag, user }) => {
   let payload =
     timeTag === "login" ? { loginTime: time } : { logoutTime: time };
 
-  const response = await api.put(`/attendance/${user}`, {
+  const response = await api.put(`/attendance/update/${user}`, {
     user,
     ...payload,
   });
