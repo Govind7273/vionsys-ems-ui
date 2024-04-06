@@ -113,17 +113,32 @@ const TaskPage = () => {
 
 
   const { data, isPending } = useGetTasksFromUserId();
-  const dataSource = data?.map((item) => ({
-    key: item._id,
-    id: item._id,
-    title: item.title,
-    description: item.description,
-    assignedBy: item.assignedBy, // Assuming assignedBy is an object with firstName and lastName
-    deadline: format(new Date(item.deadline), 'dd-MM-yyyy'),
-    status: item.status,
-    startedDate: item.startedDate ? format(new Date(item.startedDate), 'dd-MM-yyyy') : 'NA',
-    completedDate: item.completedDate ? format(new Date(item.completedDate), 'dd-MM-yyyy') : 'NA',
-  }));
+  const dataSource = data
+    ?.map((item) => ({
+      key: item._id,
+      id: item._id,
+      title: item.title,
+      description: item.description,
+      assignedBy: item.assignedBy, // Assuming assignedBy is an object with firstName and lastName
+      deadline: format(new Date(item.deadline), 'dd-MM-yyyy'),
+      status: item.status,
+      startedDate: item.startedDate ? format(new Date(item.startedDate), 'dd-MM-yyyy') : 'NA',
+      completedDate: item.completedDate ? format(new Date(item.completedDate), 'dd-MM-yyyy') : 'NA',
+    }))
+    ?.sort((a, b) => {
+      // Sort by status first
+      const statusOrder = {
+        PENDING: 1,
+        INPROGRESS: 2,
+        COMPLETED: 3,
+      };
+      if (statusOrder[a.status] !== statusOrder[b.status]) {
+        return statusOrder[a.status] - statusOrder[b.status];
+      }
+      // If status is the same, sort by insertion time (assuming 'deadline' is the insertion time)
+      return new Date(a.deadline) - new Date(b.deadline);
+    });
+
 
   return (
     <>

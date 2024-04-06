@@ -31,3 +31,8 @@ export const updateCompletedTask = async (id) => {
     const response = await api.patch(`/task/completed/${id}`);
     return response.data;
 }
+
+export const getAllTasks = async () => {
+    const response = await api.get("/task/getAll");
+    return response.data.data;
+}

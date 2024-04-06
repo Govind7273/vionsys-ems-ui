@@ -19,9 +19,8 @@ const Sidebar = ({ isMobile }) => {
   const { role } = getUserIdRole();
   return (
     <div
-      className={`${
-        !isMobile ? "hidden" : ""
-      }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800 p-4`}
+      className={`${!isMobile ? "hidden" : ""
+        }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800 p-4`}
     >
       <h1 className="mb-4 text-3xl font-bold *:text-center">Vionsys</h1>
       <div className="flex flex-col gap-2">
@@ -87,20 +86,43 @@ const Sidebar = ({ isMobile }) => {
         )}
 
         {role !== "user" && (
-          <>
-            <Button icon={<HiUsers />}>
-              <Link to="/employees">Employees</Link>
-            </Button>
-            <Button icon={<HiOutlineClipboardList />}>
-              <Link to="/attendance">Attendance</Link>
-            </Button>
-            <Button icon={<BsCalendarEvent />}>
-              <Link to="/AdminLeavePage">Leaves Request</Link>
-            </Button>
-            <Button icon={<BsCalendarEvent />}>
-              <Link to="/AdminCancleLeave">Cancel Leaves</Link>
-            </Button>
-          </>
+          <div className="flex flex-col gap-2 justify-center">
+            <Link to="/employees">
+              <Button icon={<HiUsers />}
+                className="text-left text-lg w-full flex justify-start items-center"
+              >
+                Employees
+              </Button>
+            </Link>
+            <Link to="/attendance">
+              <Button icon={<HiOutlineClipboardList />}
+                className="text-left text-lg w-full flex justify-start items-center"
+              >
+                Attendance
+              </Button>
+            </Link>
+            <Link to="/AdminLeavePage">
+              <Button icon={<BsCalendarEvent />}
+                className="text-left text-lg w-full flex justify-start items-center"
+              >
+                Leaves Request
+              </Button>
+            </Link>
+            <Link to="/AdminCancleLeave">
+              <Button icon={<BsCalendarEvent />}
+                className="text-left text-lg w-full flex justify-start items-center"
+              >
+                Cancel Leaves
+              </Button>
+            </Link>
+            <Link to="/taskHistory">
+              <Button icon={<BiTask />}
+                className="text-left text-lg w-full flex justify-start items-center"
+              >
+                Task History
+              </Button>
+            </Link>
+          </div>
         )}
       </div>
     </div>
