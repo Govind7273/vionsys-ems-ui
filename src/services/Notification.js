@@ -1,24 +1,24 @@
 import getUserIdRole from "../utils/getUserIdRole";
 import { api } from "./authApi"
 
-export const createNotification=async(values)=>{
-  const {id:userid}= getUserIdRole();
-   const response= await api.post("/notification/create",{userid,...values});
+export const createNotification = async (values) => {
+   const { id: userid } = getUserIdRole();
+   const response = await api.post("/notification/create", { userid, ...values });
    return response.data;
 }
 
 
-export const getNotifications=async()=>{
-   const response=await api.get("/notification/get");
+export const getNotifications = async () => {
+   const response = await api.get("/notification/get");
    return response?.data;
 }
 
-export const getNotification=async(id)=>{
-   const response=await api.get(`/find/notification/${id}`);
+export const getNotification = async (id) => {
+   const response = await api.get(`/notification/find/${id}`);
    return response?.data;
 }
 
-export const deleteNotification=async(id)=>{
-   const response=await api.delete(`/delete/notification/${id}`);
+export const deleteNotification = async (id) => {
+   const response = await api.delete(`/notification/delete/${id}`);
    return response.data;
 }
