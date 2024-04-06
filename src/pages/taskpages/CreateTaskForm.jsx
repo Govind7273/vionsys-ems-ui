@@ -21,6 +21,7 @@ const CreateTaskForm = () => {
         values.user = userId;
         values.deadline = new Date(values.deadline).toISOString();
         values.assignedBy = id;
+        console.log(values)
         createTask(values, {
             onSuccess: () => {
                 navigate(`/employees/${userId}`)
@@ -55,9 +56,11 @@ const CreateTaskForm = () => {
                             { required: true, message: 'Please enter deadline for task' }
                         ]}
                     >
-                        <Space direction="vertical">
-                            <DatePicker style={{ width: '100%' }} disabledDate={disabledDate} />
-                        </Space>
+
+                        <Input type='Date' name='deadline' />
+                        {/* <Space direction="vertical">
+                            <DatePicker style={{ width: '100%' }} onChange={(e) => console.log((e?.$d).toISOString())} name='deadline' disabledDate={disabledDate} />
+                        </Space> */}
                     </Form.Item>
                 </div>
 

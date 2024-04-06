@@ -26,6 +26,7 @@ import AdminCancleLeave from "./pages/leavespages/AdminCancleLeave";
 import UserLeaveActivity from "./pages/leavespages/UserLeaveActivity";
 import VerifyMail from "./pages/VerifyMail";
 import CreateTaskForm from "./pages/taskpages/CreateTaskForm";
+import TaskHistory from "./pages/taskpages/TaskHistory";
 
 
 const queryClient = new QueryClient({
@@ -69,6 +70,7 @@ function App() {
               <Route index element={<Navigate to="/home" />} />
               <Route path="/home" element={<Dashboard />} />
               <Route path="/taskpage" element={<TaskPage />} />
+              <Route path="/taskHistory" element={<TaskHistory />} />
               <Route path="/notifications" element={<NotificationPage />} />
               <Route path="/LeavesHistory" element={<LeavesHistory />} />
               <Route path="/LeavesPage" element={<LeavesPage />} />
