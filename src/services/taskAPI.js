@@ -34,7 +34,7 @@ export const updateTaskStarted = async (id) => {
 export const getTasksFromUserId = async () => {
     const { id } = getUserIdRole();
     const token = localStorage.getItem("token");
-    const response = await api.get(`/task/getAll/${id}`, {
+    const response = await api.get(`/task/findAll/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
