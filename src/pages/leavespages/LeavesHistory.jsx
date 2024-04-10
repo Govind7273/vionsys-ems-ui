@@ -17,7 +17,6 @@ const LeavesHistory = () => {
   const sorteduserLeaves = userleave?.sort(
     (a, b) => new Date(b?.date) - new Date(a?.date)
   );
-  console.log(sorteduserLeaves?.length);
   const [leaveUser, setleaveUser] = useState("");
   const [leaveId, setleaveId] = useState("");
   const [modal, setmodal] = useState(false);

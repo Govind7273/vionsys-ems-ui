@@ -27,7 +27,7 @@ import UserLeaveActivity from "./pages/leavespages/UserLeaveActivity";
 import VerifyMail from "./pages/VerifyMail";
 import CreateTaskForm from "./pages/taskpages/CreateTaskForm";
 import TaskHistory from "./pages/taskpages/TaskHistory";
-
+import LeaveMenu from "./pages/LeaveMenu";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -84,7 +84,10 @@ function App() {
               <Route path="/attendance" element={<AttendanceList />} />
               <Route path="/employees" element={<AllUsersList />} />
               <Route path="/employees/:userId" element={<UserDetails />} />
-              <Route path="/employee/task/:userId" element={<CreateTaskForm />} />
+              <Route
+                path="/employee/task/:userId"
+                element={<CreateTaskForm />}
+              />
               <Route
                 path="/employees/update/:userId"
                 element={<UpdateUserForm />}
@@ -92,6 +95,7 @@ function App() {
               <Route path="/unauthorized" element={<Unauthorized />} />
               <Route path="/AdminLeavePage" element={<AdminLeavePage />} />
               <Route path="/AdminCancleLeave" element={<AdminCancleLeave />} />
+              <Route path="/LeaveMenu" element={<LeaveMenu />} />
 
               <Route path="*" element={<RouteNotFound />} />
             </Route>
