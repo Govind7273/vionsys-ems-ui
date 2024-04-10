@@ -6,7 +6,7 @@ const { id } = getUserIdRole();
 export const createAttendance = async ({ user, time, timeTag, note }) => {
   let payload =
     timeTag === "login" ? { loginTime: time } : { logoutTime: time };
-  const response = await api.post("/attendance", {
+  const response = await api.post("/attendance/create", {
     user,
     note,
     ...payload,

@@ -1,14 +1,20 @@
-import { Button } from "antd";
-import { HiHome, HiUsers, HiOutlineClipboardList } from "react-icons/hi";
-import { BiTask } from "react-icons/bi";
-import { FaHistory } from "react-icons/fa";
-import { IoNotificationsCircle } from "react-icons/io5";
+
+import { RxDashboard } from "react-icons/rx";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import getUserIdRole from "../utils/getUserIdRole";
-import { BsCalendarEvent } from "react-icons/bs";
+import { GoPeople } from "react-icons/go";
+import { RxCrossCircled } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { MdCancelScheduleSend } from "react-icons/md";
+import { VscHistory } from "react-icons/vsc";
 import { GoCrossReference } from "react-icons/go";
+import { GoChecklist } from "react-icons/go";
 import { TbActivity } from "react-icons/tb";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { Tooltip } from 'antd';
+import { logout } from "../services/authApi";
+import { FiLogOut } from "react-icons/fi";
+import VionsysLogoImage from "/assets/vionsys_logo.png";
+import { useNavigate } from "react-router-dom";
 /*
 TODO:
   password reset & email verification functionality
@@ -17,113 +23,95 @@ TODO:
 */
 const Sidebar = ({ isMobile }) => {
   const { role } = getUserIdRole();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <div
       className={`${!isMobile ? "hidden" : ""
-        }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800 p-4`}
+        }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-white text-slate-800 p-4 shadow-xl border shadow-gray-400`}
     >
-      <h1 className="mb-4 text-3xl font-bold *:text-center">Vionsys</h1>
-      <div className="flex flex-col gap-2">
-        <Link to="/" className="flex items-center justify-center">
-          <Button
-            className="text-left text-lg w-full flex justify-start items-center"
-            icon={<HiHome />}
-          >
-            Home
-          </Button>
-        </Link>
+      <div className="flex flex-col gap-6 justify-center items-center">
+        {/* <img src={VionsysLogoImage} className="w-[50px] h-[50px]" alt="" /> */}
+        <Tooltip title="Dashboard" placement="right" >
+          <Link to="/" className="hover:text-[#ee7714]">
+            <RxDashboard size={25} />
+          </Link>
+        </Tooltip>
+
         {role == "user" && (
-          <div className="flex flex-col gap-2 justify-center ">
-            <Link to="/taskpage">
-              <Button
-                className="text-left text-lg w-full flex justify-start items-center"
-                icon={<BiTask />}
-              >
-                Task
-              </Button>
-            </Link>
-            <Link to="/notifications">
-              <Button
-                className="text-left text-lg w-full flex justify-start items-center"
-                icon={<IoNotificationsCircle />}
-              >
-                Notifications
-              </Button>
-            </Link>
-            <Link to="/LeavesPage">
-              <Button
-                className="text-left text-lg w-full flex justify-start items-center"
-                icon={<GoCrossReference />}
-              >
-                Leave Request
-              </Button>
-            </Link>
-            <Link to="/UserLeaveActivity">
-              <Button
-                className="text-left text-lg w-full flex justify-start items-center"
-                icon={<TbActivity />}
-              >
-                Leaves Activity
-              </Button>
-            </Link>
-            <Link to="/UserCancleLeave">
-              <Button
-                className="text-left text-lg w-full flex justify-start items-center"
-                icon={<MdCancelScheduleSend />}
-              >
-                cancled Leaves
-              </Button>
-            </Link>
-            <Link to="/LeavesHistory">
-              <Button
-                className="text-left text-lg w-full flex justify-start items-center"
-                icon={<FaHistory />}
-              >
-                Leaves History
-              </Button>
-            </Link>
+          <div className="flex flex-col gap-6 justify-center ">
+            <Tooltip title="Todo Tasks" placement="right" >
+              <Link to="/taskpage" className="hover:text-[#ee7714]">
+                <GoChecklist size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Notifications" placement="right" >
+              <Link to="/notifications" className="hover:text-[#ee7714]">
+                <IoNotificationsOutline size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Leave Request" placement="right" >
+              <Link to="/LeavesPage" className="hover:text-[#ee7714]">
+                <GoCrossReference size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Leave Activities" placement="right" >
+              <Link to="/UserLeaveActivity" className="hover:text-[#ee7714]">
+                <TbActivity size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Cancelled Leaves" placement="right" >
+              <Link to="/UserCancleLeave" className="hover:text-[#ee7714]">
+                <RxCrossCircled size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Leaves History" placement="right" >
+              <Link to="/LeavesHistory" className="hover:text-[#ee7714]">
+                <VscHistory size={25} />
+              </Link>
+            </Tooltip>
           </div>
         )}
 
         {role !== "user" && (
-          <div className="flex flex-col gap-2 justify-center">
-            <Link to="/employees">
-              <Button icon={<HiUsers />}
-                className="text-left text-lg w-full flex justify-start items-center"
-              >
-                Employees
-              </Button>
-            </Link>
-            <Link to="/attendance">
-              <Button icon={<HiOutlineClipboardList />}
-                className="text-left text-lg w-full flex justify-start items-center"
-              >
-                Attendance
-              </Button>
-            </Link>
-            <Link to="/AdminLeavePage">
-              <Button icon={<BsCalendarEvent />}
-                className="text-left text-lg w-full flex justify-start items-center"
-              >
-                Leaves Request
-              </Button>
-            </Link>
-            <Link to="/AdminCancleLeave">
-              <Button icon={<BsCalendarEvent />}
-                className="text-left text-lg w-full flex justify-start items-center"
-              >
-                Cancel Leaves
-              </Button>
-            </Link>
-            <Link to="/taskHistory">
-              <Button icon={<BiTask />}
-                className="text-left text-lg w-full flex justify-start items-center"
-              >
-                Task History
-              </Button>
-            </Link>
+          <div className="flex flex-col gap-6 justify-center">
+            <Tooltip title="Employees" placement="right" >
+              <Link to="/employees" className="hover:text-[#ee7714]">
+                <GoPeople size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Attendance List" placement="right" >
+              <Link to="/attendance" className="hover:text-[#ee7714]">
+                <HiOutlineClipboardDocumentList size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Leave History" placement="right" >
+              <Link to="/AdminLeavePage" className="hover:text-[#ee7714]">
+                <VscHistory size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Cancelled Leaves" placement="right" >
+              <Link to="/AdminCancleLeave" className="hover:text-[#ee7714]">
+                <RxCrossCircled size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Task History" placement="right" >
+              <Link to="/taskHistory" className="hover:text-[#ee7714]">
+                <GoChecklist size={25} />
+              </Link>
+            </Tooltip>
           </div>
         )}
+
+        <Tooltip title="Logout" placement="left" className="flex justify-center items-center absolute bottom-0 pb-6">
+          <button className="dark:text-slate-100" onClick={handleLogout}>
+            <FiLogOut size={25} />
+          </button>
+        </Tooltip>
       </div>
     </div>
   );

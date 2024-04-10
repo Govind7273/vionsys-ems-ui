@@ -3,7 +3,13 @@ import { api } from "./authApi"
 
 export const createNotification = async (values) => {
    const { id: userid } = getUserIdRole();
-   const response = await api.post("/notification/create", { userid, ...values });
+   const token = localStorage.getItem("token");
+   const response = await api.post("/notification/create", { userid, ...values },
+      {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      });
    return response.data;
 }
 
