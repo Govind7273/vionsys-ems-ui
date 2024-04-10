@@ -12,6 +12,7 @@ import useGetCurrentUser from '../../features/users/useGetCurrentUser';
 import getUserIdRole from '../../utils/getUserIdRole';
 import sendverifymail from '../../features/authentication/useVerifyMail';
 import { isToday } from 'date-fns';
+import HighlightsBDWA from './HighlightsBDWA';
 
 const UserProfile = () => {
     const { id } = getUserIdRole();
@@ -176,8 +177,8 @@ const UserProfile = () => {
                             </div>
                         </div>
                         <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-6 py-6">
-                            <Card className="col-span-1 shadow-md">
-                            </Card>
+                            {/* Highlight section */}
+                            <HighlightsBDWA />
                             <Card className="col-span-1 shadow-md">
                                 <h2 className="text-lg text-center mb-2">Your attendance</h2>
                                 <h4 className="text-center text-2xl mb-2">{!tableLoading ? startTime : "00:00:00"}</h4>
