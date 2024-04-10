@@ -108,7 +108,7 @@ const UserProfile = () => {
                     <LoaderIcon />
                 ) : (
                     <>
-                        <div className="w-[100%] h-auto grid md:grid-cols-4 grid-cols-1 bg-white rounded-md shadow-lg">
+                        <div className="w-[100%] grid md:grid-cols-4 grid-cols-1 bg-white rounded-md shadow-lg">
                             {/* left side image */}
                             <div className="flex items-center col-span-1">
                                 <img src={userData?.data?.user?.profile} className="rounded-l-md w-[250px] h-[200px]" alt="" />
@@ -176,51 +176,53 @@ const UserProfile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-6 py-6">
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-6 py-6 items-start">
                             {/* Highlight section */}
                             <HighlightsBDWA />
                             <Card className="col-span-1 shadow-md">
-                                <h2 className="text-lg text-center mb-2">Your attendance</h2>
-                                <h4 className="text-center text-2xl mb-2">{!tableLoading ? startTime : "00:00:00"}</h4>
-                                <div className="border rounded-md mb-4 flex-1 text-[#888] p-2 flex flex-col gap-2">
-                                    <div className="flex justify-between">
-                                        <span>Break Time:</span>
-                                        <span>1PM-2PM or 4PM to 5PM(1 hour)</span>
+                                <div className='flex flex-col gap-2 pt-0'>
+                                    <h2 className="text-lg text-center mb-2">Your attendance</h2>
+                                    <h4 className="text-center text-4xl mb-2">{!tableLoading ? startTime : "00:00:00"}</h4>
+                                    <div className="border rounded-md mb-4 flex-1 text-[#888] p-2 flex flex-col gap-2">
+                                        <div className="flex justify-between">
+                                            <span>Break Time:</span>
+                                            <span>1PM-2PM or 4PM to 5PM(1 hour)</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Target Hours:&nbsp;</span>
+                                            <span>08:H 15M (per day)</span>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span>Target Hours:&nbsp;</span>
-                                        <span>08:H 15M (per day)</span>
+                                    <div className="flex gap-6 justify-center items-center">
+                                        <Button
+                                            type="button"
+                                            className={`bg-green-400 text-white ${isActive
+                                                ? "pointer-events-none opacity-50"
+                                                : "hover:bg-white hover:text-green-400 hover:border-green-400"
+                                                }`}
+                                            onClick={handleAttendanceLogin}
+                                            disabled={
+                                                attendanceLoading ||
+                                                employeesAttendance?.data?.attendanceForDay?.loginTime
+                                            }
+                                        >
+                                            Check In
+                                        </Button>
+                                        <Button
+                                            type="button"
+                                            className={`bg-red-500 text-white ${!isActive
+                                                ? "pointer-events-none opacity-50"
+                                                : "hover:bg-white hover:text-red-500 hover:border-red-500"
+                                                }`}
+                                            onClick={handleAttendanceLogout}
+                                            disabled={
+                                                updateLoading ||
+                                                employeesAttendance?.data?.attendanceForDay?.logoutTime
+                                            }
+                                        >
+                                            Check Out
+                                        </Button>
                                     </div>
-                                </div>
-                                <div className="flex gap-6 justify-center items-center">
-                                    <Button
-                                        type="button"
-                                        className={`bg-green-400 text-white ${isActive
-                                            ? "pointer-events-none opacity-50"
-                                            : "hover:bg-white hover:text-green-400 hover:border-green-400"
-                                            }`}
-                                        onClick={handleAttendanceLogin}
-                                        disabled={
-                                            attendanceLoading ||
-                                            employeesAttendance?.data?.attendanceForDay?.loginTime
-                                        }
-                                    >
-                                        Check In
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        className={`bg-red-500 text-white ${!isActive
-                                            ? "pointer-events-none opacity-50"
-                                            : "hover:bg-white hover:text-red-500 hover:border-red-500"
-                                            }`}
-                                        onClick={handleAttendanceLogout}
-                                        disabled={
-                                            updateLoading ||
-                                            employeesAttendance?.data?.attendanceForDay?.logoutTime
-                                        }
-                                    >
-                                        Check Out
-                                    </Button>
                                 </div>
                             </Card>
                         </div>

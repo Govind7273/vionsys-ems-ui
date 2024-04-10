@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import useGetAllAttendance from "../features/attendance/useGetAllAttendance";
 import { isToday } from "date-fns";
+import HighlightsBDWA from "../ui/user/HighlightsBDWA";
 
 const AdminDashboard = () => {
   const { data, isPending } = useGetAllAttendance();
@@ -88,7 +89,7 @@ const AdminDashboard = () => {
   ]
   return (
     <>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-8 px-8 pt-8 ">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-8 px-8 pt-8">
         {
           emps_data.map((item) => (
             <div key={item.id} className="flex flex-wrap gap-2 p-4 bg-white justify-evenly items-center rounded-md">
@@ -102,7 +103,7 @@ const AdminDashboard = () => {
         }
       </div>
 
-      <div className="p-8 grid md:grid-cols-3 gap-2 relative">
+      <div className="p-8 grid md:grid-cols-3 gap-2 relative overflow-x-hidden">
         <UserAvailable />
         <Card>
           <h1 className="text-xl">Employees By Gender</h1>
@@ -137,9 +138,7 @@ const AdminDashboard = () => {
             </ResponsiveContainer>
           </div>
         </Card>
-        <Card>
-
-        </Card>
+        <HighlightsBDWA />
         <Notifications />
 
       </div>
