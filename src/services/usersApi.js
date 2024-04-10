@@ -2,8 +2,8 @@ import { api } from "./authApi";
 
 export const getAllUserApi = async () => {
     const token = localStorage.getItem("token");
-    const response = await api.get('',{
-        headers:{
+    const response = await api.get('', {
+        headers: {
             Authorization: `Bearer ${token}`
         }
     });
@@ -17,7 +17,12 @@ export const deleteUserApi = async (userId) => {
 }
 
 
-export const updateUser=async(values)=>{
-    const response=await api.patch(`/${values._id}`,values);
+export const updateUser = async (values) => {
+    const response = await api.patch(`/${values._id}`, values);
     return response.data;
-  }
+}
+
+export const getUsersBirthdayFromMonth = async () => {
+    const response = await api.get(`/birthdays`);
+    return response.data;
+}
