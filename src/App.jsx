@@ -51,7 +51,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools position="bottom" buttonPosition="bottom-left" />
+        <ReactQueryDevtools position="bottom" buttonPosition="bottom-right" />
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -112,7 +112,7 @@ function App() {
               fontSize: "16px",
               maxWidth: "500px",
               padding: "16px 24px",
-              backgroundColor: "var(--color-grey-0)",
+              backgroundColor: "#fff",
               color: "var(--color-grey-700)",
             },
           }}

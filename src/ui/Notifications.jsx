@@ -30,7 +30,7 @@ const Notifications = () => {
   };
 
   return (
-    <Card className="col-span-2">
+    <Card className="col-span-3">
       <div className="flex justify-between items-center border-b pb-2">
         <h1 className="text-xl">Notifications</h1>
         {role === "admin" && (
@@ -52,7 +52,7 @@ const Notifications = () => {
                 description={item.description}
               />
 
-              
+
 
               <div className="text-[#999] flex flex-col relative  pb-2">
                 {/* Format date here */}
