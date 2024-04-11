@@ -28,7 +28,7 @@ const ExcelForm = ({ isModalOpen, setIsModalOpen, userId }) => {
     const Format_endDate = format(endDate, "yyyy-MM-dd");
     if (userId) {
       getExcelByid({ Format_startDate, Format_endDate, email, userId });
-      return
+      return;
     }
     getExcel({ Format_startDate, Format_endDate, email });
   };
