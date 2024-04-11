@@ -21,7 +21,7 @@ const HighlightsBDWA = () => {
             <h3 className='pb-2 font-semibold'>Highlights</h3>
             <ReactConfetti
                 width={400}
-                height={200}
+                height={300}
                 numberOfPieces={280}
                 gravity={0.1}
                 tweenDuration={9000}
