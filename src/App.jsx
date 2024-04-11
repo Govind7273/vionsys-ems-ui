@@ -28,6 +28,7 @@ import VerifyMail from "./pages/VerifyMail";
 import CreateTaskForm from "./pages/taskpages/CreateTaskForm";
 import TaskHistory from "./pages/taskpages/TaskHistory";
 import LeaveMenu from "./pages/LeaveMenu";
+import HolidayCalander from "./ui/HolidayCalander";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,6 +96,7 @@ function App() {
               <Route path="/unauthorized" element={<Unauthorized />} />
               <Route path="/AdminLeavePage" element={<AdminLeavePage />} />
               <Route path="/AdminCancleLeave" element={<AdminCancleLeave />} />
+              <Route path="/HolidayCalander" element={<HolidayCalander />} />
               <Route path="/LeaveMenu" element={<LeaveMenu />} />
 
               <Route path="*" element={<RouteNotFound />} />

@@ -9,6 +9,7 @@ import { GoCrossReference } from "react-icons/go";
 import { GoChecklist } from "react-icons/go";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { Tooltip } from "antd";
+import { SlCalender } from "react-icons/sl";
 import { logout } from "../services/authApi";
 import { FiLogOut } from "react-icons/fi";
 
@@ -81,6 +82,11 @@ const Sidebar = ({ isMobile }) => {
             <Tooltip title="Task History" placement="right">
               <Link to="/taskHistory" className="hover:text-[#ee7714]">
                 <GoChecklist size={25} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Holiday Calender" placement="right">
+              <Link to="/HolidayCalander" className="hover:text-[#ee7714]">
+                <SlCalender size={25} />
               </Link>
             </Tooltip>
           </div>
