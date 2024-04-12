@@ -3,22 +3,25 @@ import { Button, Form, Input, Modal, DatePicker, Space } from 'antd';
 import { HiXCircle } from 'react-icons/hi';
 import useGetCurrentUser from '../../features/users/useGetCurrentUser';
 import getUserIdRole from '../../utils/getUserIdRole';
-import { format } from 'date-fns';
+import { useParams } from "react-router";
+import useAddKit from '../../features/joiningKit/useAddKit';
 
 const AddWelcomeKit = ({ isModalOpen, setIsModalOpen }) => {
-    const [assignDate, setAssignedDate] = useState(null); // Initialize assignDate to null
     const { id } = getUserIdRole();
     const { user, isPending } = useGetCurrentUser(id);
+    const { addKit, addKitPending } = useAddKit();
     const name = `${user?.data?.user?.firstName} ${user?.data?.user?.lastName}`;
-
+    const { userId } = useParams();
+    const [form] = Form.useForm(); // Create a form instance
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
-    const onFinish = (values) => {
-        values.assignDate = format(new Date(assignDate), 'yyyy-MM-dd');
+    const onFinish = async (values) => {
+        values.user = userId;
         values.assignBy = name;
         console.log(values);
+        addKit(values);
         handleCancel();
     };
 
@@ -35,6 +38,7 @@ const AddWelcomeKit = ({ isModalOpen, setIsModalOpen }) => {
                         name="myForm"
                         layout="vertical"
                         onFinish={onFinish}
+                        form={form} // Pass the form instance to the Form component
                     >
                         <div className="flex flex-wrap gap-x-4">
                             <Form.Item
@@ -72,11 +76,13 @@ const AddWelcomeKit = ({ isModalOpen, setIsModalOpen }) => {
                         <div className="flex flex-wrap gap-x-4">
                             <Form.Item
                                 label="Assigned Date"
+                                name="assignDate"
                                 className="flex-1"
+                                rules={[
+                                    { required: true, message: 'Please select the assigned date' },
+                                ]}
                             >
-                                <Space direction="vertical">
-                                    <DatePicker value={assignDate} onChange={(date, dateString) => setAssignedDate(dateString)} /> {/* Corrected onChange */}
-                                </Space>
+                                <Input type='Date' />
                             </Form.Item>
 
                         </div>
