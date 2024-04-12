@@ -30,7 +30,7 @@ const PreviousWork = () => {
             <Timeline.Item key={item._id} className="">
               <div className="bg-white text-black w-full p-8 rounded-md">
                 <h3 className="text-2xl font-bold">
-                  Company Name : {item?.companyName}
+                  Company Name : {item?.componeyName}
                 </h3>
                 <p className="text-xl">
                   Joining Date :{" "}
