@@ -25,9 +25,8 @@ const Sidebar = ({ isMobile }) => {
   };
   return (
     <div
-      className={`${
-        !isMobile ? "hidden" : ""
-      }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-white text-slate-800 p-4 shadow-xl border shadow-gray-400`}
+      className={`${!isMobile ? "hidden" : ""
+        }  sm:block h-full dark:bg-slate-800 dark:text-slate-100 bg-white text-slate-800 p-4 shadow-xl border shadow-gray-400`}
     >
       <div className="flex flex-col gap-6 justify-center items-center">
         {/* <img src={VionsysLogoImage} className="w-[50px] h-[50px]" alt="" /> */}
@@ -37,7 +36,7 @@ const Sidebar = ({ isMobile }) => {
           </Link>
         </Tooltip>
 
-        {role == "user" && (
+        {role === "user" && (
           <div className="flex flex-col gap-6 justify-center ">
             <Tooltip title="Todo Tasks" placement="right">
               <Link to="/taskpage" className="hover:text-[#ee7714]">
@@ -64,29 +63,9 @@ const Sidebar = ({ isMobile }) => {
                 <GoPeople size={25} />
               </Link>
             </Tooltip>
-            <Tooltip title="Attendance List" placement="right">
-              <Link to="/attendance" className="hover:text-[#ee7714]">
-                <HiOutlineClipboardDocumentList size={25} />
-              </Link>
-            </Tooltip>
             <Tooltip title="Leave History" placement="right">
               <Link to="/AdminLeavePage" className="hover:text-[#ee7714]">
-                <VscHistory size={25} />
-              </Link>
-            </Tooltip>
-            <Tooltip title="Cancelled Leaves" placement="right">
-              <Link to="/AdminCancleLeave" className="hover:text-[#ee7714]">
-                <RxCrossCircled size={25} />
-              </Link>
-            </Tooltip>
-            <Tooltip title="Task History" placement="right">
-              <Link to="/taskHistory" className="hover:text-[#ee7714]">
-                <GoChecklist size={25} />
-              </Link>
-            </Tooltip>
-            <Tooltip title="Holiday Calender" placement="right">
-              <Link to="/HolidayCalander" className="hover:text-[#ee7714]">
-                <SlCalender size={25} />
+                <GoCrossReference size={25} />
               </Link>
             </Tooltip>
           </div>
