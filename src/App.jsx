@@ -29,6 +29,9 @@ import CreateTaskForm from "./pages/taskpages/CreateTaskForm";
 import TaskHistory from "./pages/taskpages/TaskHistory";
 import LeaveMenu from "./pages/LeaveMenu";
 import HolidayCalander from "./ui/HolidayCalander";
+import EmployeesSubMenu from "./pages/Employees/EmployeesSubMenu";
+import LeavesSubMenu from "./pages/Employees/LeavesSubMenu";
+import ProfileSubMenu from "./pages/Employees/ProfileSubMenu";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,20 +74,16 @@ function App() {
               <Route index element={<Navigate to="/home" />} />
               <Route path="/home" element={<Dashboard />} />
               <Route path="/taskpage" element={<TaskPage />} />
-              <Route path="/taskHistory" element={<TaskHistory />} />
               <Route path="/notifications" element={<NotificationPage />} />
               <Route path="/LeavesHistory" element={<LeavesHistory />} />
               <Route path="/LeavesPage" element={<LeavesPage />} />
               <Route path="/UserCancleLeave" element={<UserCancleLeave />} />
-              <Route path="/AdminCancleLeave" element={<AdminCancleLeave />} />
               <Route
                 path="/UserLeaveActivity"
                 element={<UserLeaveActivity />}
               />
-
-              <Route path="/attendance" element={<AttendanceList />} />
-              <Route path="/employees" element={<AllUsersList />} />
-              <Route path="/employees/:userId" element={<UserDetails />} />
+              <Route path="/employees" element={<EmployeesSubMenu />} />
+              <Route path="/employees/:userId" element={<ProfileSubMenu />} />
               <Route
                 path="/employee/task/:userId"
                 element={<CreateTaskForm />}
@@ -94,11 +93,8 @@ function App() {
                 element={<UpdateUserForm />}
               />
               <Route path="/unauthorized" element={<Unauthorized />} />
-              <Route path="/AdminLeavePage" element={<AdminLeavePage />} />
-              <Route path="/AdminCancleLeave" element={<AdminCancleLeave />} />
-              <Route path="/HolidayCalander" element={<HolidayCalander />} />
+              <Route path="/AdminLeavePage" element={<LeavesSubMenu />} />
               <Route path="/LeaveMenu" element={<LeaveMenu />} />
-
               <Route path="*" element={<RouteNotFound />} />
             </Route>
           </Routes>

@@ -8,6 +8,8 @@ import { useDeleteUser } from "../features/users/useDeleteUser";
 import ExcelForm from "../ui/ExcelForm";
 import { BiTask } from "react-icons/bi";
 import { RiFileExcel2Line } from "react-icons/ri";
+import { Tooltip } from "antd";
+
 
 const UserDetails = () => {
   const { userId } = useParams();
@@ -17,6 +19,7 @@ const UserDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [excelModal, setexcelModal] = useState(false);
   const { deleteUser, isPending: deleteLoading } = useDeleteUser();
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -68,22 +71,22 @@ const UserDetails = () => {
       <div className="relative flex md:flex-row flex-col md:pt-10  pt-20 gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
 
-          <Popover placement="topRight" title="Assign Task"><Button onClick={()=>navigate(`/employee/task/${userId}`)} className="flex justify-center items-center gap-2 text-yellow-800"><BiTask /></Button></Popover>
-          <Popover placement="topRight" title="Get Attendance Excel">
+          <Tooltip placement="top" title="Assign Task"><Button onClick={() => navigate(`/employee/task/${userId}`)} className="flex justify-center items-center gap-2 text-yellow-800"><BiTask /></Button></Tooltip>
+          <Tooltip placement="top" title="Get Attendance Excel">
             <Button type="default" className="text-[#217346]" onClick={() => setexcelModal(true)}>
               <RiFileExcel2Line />
             </Button>
-          </Popover>
-          <Popover placement="topRight" title="Delete Employee">
+          </Tooltip>
+          <Tooltip placement="top" title="Delete Employee">
             <Button className="text-red-500" onClick={showModal}>
               <HiTrash />
             </Button>
-          </Popover>
-          <Popover placement="topRight" title="Update Employee">
+          </Tooltip>
+          <Tooltip placement="topRight" title="Update Employee">
             <Button className="text-blue-400" onClick={() => navigate(`/employees/update/${userId}`)}>
               <HiPencil />
             </Button>
-          </Popover>
+          </Tooltip>
 
         </div>
         <div className="text-center">
