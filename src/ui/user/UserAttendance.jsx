@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import useGetAttendance from '../../features/attendance/useGetAttendance';
 import '../../utils/css/attendance.css';
+import getholidayList from '../../features/holiday/useGetHolidays';
 
 const localizer = momentLocalizer(moment);
 
@@ -15,7 +16,7 @@ const isWeeklyOff = (date) => {
 
 const isAlternateSaturdayOff = (date) => {
     const dayOfMonth = moment(date).date();
-    return dayOfMonth % 14 === 0; // Alternate Saturdays
+    return dayOfMonth / 14 === 0; // Alternate Saturdays
 };
 
 const isAlternateSundayOff = (date) => {
@@ -26,20 +27,23 @@ const isAlternateSundayOff = (date) => {
 const UserAttendance = () => {
     const { data: employeesData, isPending: attendanceLoading } = useGetAttendance();
     const userAttendance = employeesData?.data?.attendance;
-
+    const { data: holidayList, isPending } = getholidayList(new Date().getFullYear());
+    console.log(holidayList?.fixedHolidays)
+    const fixedHolidayList = holidayList?.fixedHolidays || [];
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        if (userAttendance) {
-            const processedEvents = generateEvents(userAttendance);
+        if (userAttendance && fixedHolidayList) {
+            const processedEvents = generateEvents(userAttendance, fixedHolidayList);
             setEvents(processedEvents);
         }
-    }, [userAttendance]);
+    }, [userAttendance, fixedHolidayList]);
 
-    const generateEvents = (attendanceData) => {
+    const generateEvents = (attendanceData, fixedHolidayList) => {
         const processedEvents = [];
         const today = new Date();
-        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth() - 2, 1);
         const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
         for (let date = new Date(firstDayOfMonth); date <= lastDayOfMonth; date.setDate(date.getDate() + 1)) {
@@ -55,45 +59,65 @@ const UserAttendance = () => {
                     classNames: 'weeklyOff',
                 });
             } else {
-                // Check if there is attendance data for the date
-                const attendanceEntry = attendanceData.find(entry => moment(entry.date).format('YYYY-MM-DD') === dateString);
-
-                // If attendance data exists, determine if the employee is present or absent
-                if (attendanceEntry) {
-                    const loginTime = new Date(attendanceEntry?.loginTime);
-                    const logoutTime = new Date(attendanceEntry?.logoutTime);
-
-                    if (loginTime && loginTime <= today) {
-                        if (logoutTime) {
-                            // Employee is present
-                            processedEvents.push({
-                                title: 'P',
-                                desc: `${moment(loginTime).format('hh:mm')}-${moment(logoutTime).format('hh:mm')}`,
-                                start: new Date(dateString),
-                                end: new Date(dateString),
-                                type: 'present',
-                                classNames: 'present',
-                            });
-                        } else {
-                            // Employee is absent
-                            processedEvents.push({
-                                title: 'A',
-                                start: new Date(dateString),
-                                end: new Date(dateString),
-                                type: 'absent',
-                                classNames: 'absent',
-                            });
-                        }
-                    }
-                } else if (date <= today) {
-                    // Employee is absent
+                const holiday = fixedHolidayList.find(entry => moment(entry.date).format('YYYY-MM-DD') === dateString);
+                if (holiday) {
+                    // If the date is a holiday, mark it as HO (Holiday) with blue color
                     processedEvents.push({
-                        title: 'A',
+                        title: 'HO',
+                        desc: holiday.holidayName,
                         start: new Date(dateString),
                         end: new Date(dateString),
-                        type: 'absent',
-                        classNames: 'absent',
+                        type: 'holiday',
+                        classNames: 'holiday',
                     });
+                } else {
+                    // Check if there is attendance data for the date
+                    const attendanceEntry = attendanceData?.find(entry => moment(entry.date).format('YYYY-MM-DD') === dateString);
+
+                    // If attendance data exists, determine if the employee is present or absent
+                    if (attendanceEntry) {
+                        const loginTime = new Date(attendanceEntry?.loginTime);
+                        const logoutTime = new Date(attendanceEntry?.logoutTime);
+
+                        if (loginTime <= today) {
+                            if (logoutTime) {
+                                // Calculate work time duration
+                                const duration = moment.duration(logoutTime - loginTime);
+                                const hours = duration.hours();
+                                const minutes = duration.minutes();
+                                const workTime = `${hours} hrs : ${minutes} mins`;
+
+                                // Employee is present
+                                processedEvents.push({
+                                    title: 'P',
+                                    work: workTime,
+                                    desc: `${moment(loginTime).format('hh:mm')}-${moment(logoutTime).format('hh:mm')}`,
+                                    start: new Date(dateString),
+                                    end: new Date(dateString),
+                                    type: 'present',
+                                    classNames: 'present',
+                                });
+                            } else {
+                                // Employee is absent
+                                processedEvents.push({
+                                    title: 'A',
+                                    start: new Date(dateString),
+                                    end: new Date(dateString),
+                                    type: 'absent',
+                                    classNames: 'absent',
+                                });
+                            }
+                        }
+                    } else if (date <= today) {
+                        // Employee is absent
+                        processedEvents.push({
+                            title: 'A',
+                            start: new Date(dateString),
+                            end: new Date(dateString),
+                            type: 'absent',
+                            classNames: 'absent',
+                        });
+                    }
                 }
             }
         }
@@ -113,6 +137,9 @@ const UserAttendance = () => {
         } else if (event.title === 'P') {
             style.backgroundColor = '#1df52bc9';
             style.color = '#fff';
+        } else if (event.title === 'HO') {
+            style.backgroundColor = '#7498d0'; // Blue color for holidays
+            style.color = '#fff';
         }
 
         return {
@@ -129,26 +156,51 @@ const UserAttendance = () => {
                     {event.desc}
                 </div>
             )}
+            <span>
+                {event.work && (
+                    <div className='text-[10px] font-semibold'>
+                        {event.work}
+                    </div>
+                )}
+            </span>
         </div>
     );
 
     const today = new Date();
 
     return (
-        <div className='h-[100vh] bg-white p-4'>
-            {
-                !attendanceLoading && (
-                    <Calendar
-                        localizer={localizer}
-                        events={events}
-                        views={['month']}
-                        step={1}
-                        defaultDate={today}
-                        eventPropGetter={eventStyleGetter}
-                        components={{ event: CustomEvent }} // Use CustomEvent component for rendering events
-                    />
-                )
-            }
+        <div className='flex flex-col gap-2'>
+            <div className='h-[130vh] bg-white p-4 rounded-md shadow-sm mx-4'>
+                {
+                    !attendanceLoading && (
+                        <Calendar
+                            localizer={localizer}
+                            events={events}
+                            views={['month']}
+                            step={1}
+                            defaultDate={today}
+                            eventPropGetter={eventStyleGetter}
+                            components={{ event: CustomEvent }} // Use CustomEvent component for rendering events
+                        />
+                    )
+                }
+            </div>
+            <div className='bg-white p-4 rounded-md shadow-sm mx-4 mb-4'>
+                <div className='flex gap-6 justify-center items-center'>
+                    <div className='flex items-center gap-2'>
+                        <div className='w-[20px] h-[20px] bg-[#e53935]'></div>
+                        <p>Weekly Off / Absent</p>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <div className='w-[20px] h-[20px] bg-[#7498d0]'></div>
+                        <p>Holiday</p>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <div className='w-[20px] h-[20px] bg-[#1df52bc9]'></div>
+                        <p>Present</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
