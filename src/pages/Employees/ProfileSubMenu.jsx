@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import UserDetails from '../UserDetails';
 import JoiningKit from '../../ui/user/JoiningKit';
 import JoiningKitOfEmpForAdmin from '../welcomeKit/AdminKit';
+import PreviousWork from '../../ui/user/PreviousWork';
 const ProfileSubMenu = () => {
     const [activeLink, setActiveLink] = useState("Profile");
 
@@ -40,6 +41,7 @@ const ProfileSubMenu = () => {
             <div className="p-4 ml-40 flex-1 w-full">
                 {activeLink === "Profile" && <UserDetails />}
                 {activeLink === "Joining Kit" && <JoiningKitOfEmpForAdmin />}
+                {activeLink === "Previous Work" && <PreviousWork />}
             </div>
         </div>
     )

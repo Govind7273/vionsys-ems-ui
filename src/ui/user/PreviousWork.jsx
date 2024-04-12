@@ -3,10 +3,11 @@ import { Timeline } from "antd";
 import useGetWorkHistory from "../../features/workhistory/useGetWorkHistory";
 import getUserIdRole from "../../utils/getUserIdRole";
 import { format } from "date-fns";
-
+import { useParams } from "react-router";
 const PreviousWork = () => {
+  const { userId } = useParams();
   const { id } = getUserIdRole();
-  const { data, isPending } = useGetWorkHistory(id);
+  const { data, isPending } = useGetWorkHistory(!userId ? id : userId);
   const workhistory = data?.workhistory;
   const sortedData = workhistory?.sort(
     (a, b) => new Date(b.startDate) - new Date(a.startDate)

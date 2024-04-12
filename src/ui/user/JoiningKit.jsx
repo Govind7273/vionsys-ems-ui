@@ -11,30 +11,30 @@ const JoiningKit = () => {
   console.log(KitData);
   const KitdatColumns = [
     {
-      title: "Accessorie Name",
-      dataIndex: "accessorieName",
-      key: "accessorieName",
+      title: "Accessory Name",
+      dataIndex: "accessoryName",
+      key: "accessoryName",
     },
     {
-      title: "Accessorie Company",
-      dataIndex: "accessorieCompany",
-      key: "accessorieCompany",
+      title: "Accessory Company",
+      dataIndex: "accessoryCompany",
+      key: "accessoryCompany",
     },
     {
-      title: "Accessories Id",
-      dataIndex: "accessoriesId",
-      key: "accessoriesId",
+      title: "Accessory Id",
+      dataIndex: "accessoryId",
+      key: "accessoryId",
     },
     {
-      title: "given Date",
-      dataIndex: "givenDate",
-      key: "givenDate",
+      title: "Assigned Date",
+      dataIndex: "assignDate",
+      key: "assignDate",
       render: (date) => (date ? format(new Date(date), "dd MMM yyyy") : ""),
     },
     {
-      title: "given By",
-      dataIndex: "givenBy",
-      key: "givenBy",
+      title: "Assigned By",
+      dataIndex: "assignBy",
+      key: "assignBy",
     },
   ];
   return (
