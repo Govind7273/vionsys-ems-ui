@@ -177,18 +177,18 @@ const HolidayCalander = () => {
         </Button>
       </Modal>
       <div>
-        <div className="flex items-center w-fit justify-center gap-2 p-5">
-          <h1 className="text-4xl font-semibold">Holidays for year,</h1>
+        <div className="flex items-center w-fit justify-center gap-2 p-2">
+          <h1 className="text-3xl font-semibold">Holidays for year</h1>
           <Select
             onChange={(e) => setYear(e)}
             defaultValue={new Date().getFullYear()}
             placeholder="Calender Year"
           >
-            <Select.Option value={2023}>2023</Select.Option>
             <Select.Option value={2024}>2024</Select.Option>
             <Select.Option value={2025}>2025</Select.Option>
             <Select.Option value={2026}>2026</Select.Option>
             <Select.Option value={2027}>2027</Select.Option>
+            <Select.Option value={2028}>2028</Select.Option>
           </Select>
         </div>
         <p className="px-5">You can see list of holidays in calender year.</p>
@@ -196,18 +196,16 @@ const HolidayCalander = () => {
       <div className="flex justify-center items-center gap-3 m-3">
         <div className="w-fit border-b border-black p-2">
           <button
-            className={`p-3  rounded-lg ${
-              mode === "fixed" ? "bg-blue-300 text-white" : ""
-            }`}
+            className={`px-3 py-1  rounded-lg ${mode === "fixed" ? "bg-blue-400 text-white" : ""
+              }`}
             onClick={() => setMode("fixed")}
           >
             Fixed Holidays
           </button>
           {/* Button to switch to Floater Holidays mode */}
           <button
-            className={`p-3 rounded-lg ${
-              mode === "floater" ? "bg-blue-300 text-white" : ""
-            }`}
+            className={`px-3 py-1 rounded-lg ${mode === "floater" ? "bg-blue-400 text-white" : ""
+              }`}
             onClick={() => setMode("floater")}
           >
             Floater Holidays
@@ -215,7 +213,7 @@ const HolidayCalander = () => {
         </div>
         <div className="holiday_create">
           {role == "admin" && (
-            <Button onClick={() => setcreationmodal(true)}>
+            <Button type="default" className="bg-white" onClick={() => setcreationmodal(true)}>
               Create new Holiday
             </Button>
           )}
