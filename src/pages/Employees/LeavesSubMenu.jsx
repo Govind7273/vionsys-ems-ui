@@ -18,7 +18,7 @@ const LeavesSubMenu = () => {
                         }`}
                     onClick={() => handleSidebarLinkClick("Leave History")}
                 >
-                    Leave History
+                    Leave Requests
                 </Link>
                 <Link
                     className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Canceled leaves" ? "font-bold text-blue-300" : ""
