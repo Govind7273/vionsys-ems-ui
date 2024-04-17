@@ -187,7 +187,7 @@ const UserProfile = () => {
                             <HighlightsBDWA />
                             <Card className="col-span-1 shadow-md">
                                 <div className='flex flex-col gap-2 pt-0'>
-                                    <h2 className="text-lg text-center mb-2">Your attendance</h2>
+                                    <h2 className="text-lg text-center mb-2">Your Attendance</h2>
                                     <h4 className="text-center text-4xl mb-2">{!tableLoading ? startTime : "00:00:00"}</h4>
                                     <div className="border rounded-md mb-4 flex-1 text-[#888] p-2 flex flex-col gap-2">
                                         <div className="flex justify-between">

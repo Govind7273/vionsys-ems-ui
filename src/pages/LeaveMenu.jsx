@@ -18,33 +18,29 @@ const LeaveMenu = () => {
       {/* Sidebar */}
       <div className="flex flex-1 flex-col h-full fixed bg-slate-50 px-8 py-10  gap-2 shadow-md">
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Leave Request" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Leave Request" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Leave Request")}
         >
           Leave Request
         </Link>
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Cancled Leaves" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Cancled Leaves" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Cancled Leaves")}
         >
-          Cancled Leaves
+          Cancelled Leaves
         </Link>
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Leaves Activity" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Leaves Activity" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Leaves Activity")}
         >
           Leaves Activity
         </Link>
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === " Leaves History" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === " Leaves History" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Leaves History")}
         >
           Leaves History

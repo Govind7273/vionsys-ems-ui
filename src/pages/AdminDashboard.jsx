@@ -82,7 +82,7 @@ const AdminDashboard = () => {
       icon: <FiUserCheck size={30} className="text-green-400" />
     }, {
       id: 3,
-      title: "UnAvailable Employees",
+      title: "Unavailable Employees",
       value: `${unAvailable}`,
       icon: <BsPersonX size={30} className="text-red-300" />
     }

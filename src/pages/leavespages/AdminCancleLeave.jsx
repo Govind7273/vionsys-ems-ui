@@ -54,7 +54,7 @@ const AdminCancleLeave = () => {
       render: (leaveReason) => (leaveReason ? leaveReason : "NA"),
     },
     {
-      title: "Cancle Reason",
+      title: "Cancel Reason",
       dataIndex: "cancleReason",
       key: "cancleReason",
       render: (cancleReason) => (cancleReason ? cancleReason : "NA"),

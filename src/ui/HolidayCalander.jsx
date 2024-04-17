@@ -191,9 +191,16 @@ const HolidayCalander = () => {
             <Select.Option value={2028}>2028</Select.Option>
           </Select>
         </div>
-        <p className="px-5">You can see list of holidays in calender year.</p>
+        <p className="px-5">You can see a list of holidays in the calendar year.</p>
       </div>
       <div className="flex justify-center items-center gap-3 m-3">
+        {
+          mode === "fixed" ? "" : (
+            <div className="px-4 py-1 text-red-500 bg-white rounded-md">
+              <h3>You can take only one floater leave.</h3>
+            </div>
+          )
+        }
         <div className="w-fit border-b border-black p-2">
           <button
             className={`px-3 py-1  rounded-lg ${mode === "fixed" ? "bg-blue-400 text-white" : ""
@@ -214,7 +221,7 @@ const HolidayCalander = () => {
         <div className="holiday_create">
           {role == "admin" && (
             <Button type="default" className="bg-white" onClick={() => setcreationmodal(true)}>
-              Create new Holiday
+              Create a new Holiday
             </Button>
           )}
         </div>
@@ -229,6 +236,7 @@ const HolidayCalander = () => {
           className="px-5"
         />
       )}
+
     </div>
   );
 };

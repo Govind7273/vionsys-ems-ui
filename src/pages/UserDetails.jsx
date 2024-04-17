@@ -68,7 +68,7 @@ const UserDetails = () => {
         setIsModalOpen={setexcelModal}
         userId={userId}
       />
-      <div className="relative flex md:flex-row flex-col md:pt-10  pt-20 gap-8 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
+      <div className="relative grid grid-cols-1 px-4 md:pt-10  pt-20 gap-6 bg-slate-50 dark:bg-slate-400 py-8 w-full justify-around items-center">
         <div className="absolute top-4 right-4 flex gap-2">
 
           <Tooltip placement="top" title="Assign Task"><Button onClick={() => navigate(`/employee/task/${userId}`)} className="flex justify-center items-center gap-2 text-yellow-800"><BiTask /></Button></Tooltip>
@@ -89,7 +89,7 @@ const UserDetails = () => {
           </Tooltip>
 
         </div>
-        <div className="text-center">
+        <div className="flex justify-center items-center flex-col">
           <img
             className="w-36 h-36 rounded-md object-cover shadow-md"
             src={
@@ -103,12 +103,18 @@ const UserDetails = () => {
             {`${userData?.firstName} ${userData?.lastName}`}
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-x-10 gap-y-4 md:pt-10 pt-6">
+        <div className="grid md:grid-cols-4 gap-x-10 gap-y-4 md:pt-10 pt-6">
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
-              Email :{" "}
+              Office Email :{" "}
             </span>
             {`${userData?.email}`}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Personal Email :{" "}
+            </span>
+            {`${userData?.personalEmail}`}
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
@@ -142,7 +148,7 @@ const UserDetails = () => {
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
-              Date Of Birth :{" "}
+              Date of Birth :{" "}
             </span>
             {userData?.dob
               ? new Date(userData.dob).toLocaleDateString()
@@ -150,15 +156,23 @@ const UserDetails = () => {
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
-              Address :{" "}
+              Temporary Address :{" "}
             </span>
 
-            {userData?.address ? userData.address : 'N/A'}
+            {userData?.TempAddress ? userData.TempAddress : 'N/A'}
 
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
-              Contact Details :{" "}
+              Permanent Address :{" "}
+            </span>
+
+            {userData?.PerAddress ? userData.PerAddress : 'N/A'}
+
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
+              Contact Number :{" "}
             </span>
 
             {userData?.phone ? userData.phone : 'N/A'}

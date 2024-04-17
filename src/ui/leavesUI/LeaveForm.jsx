@@ -42,8 +42,8 @@ const LeaveForm = () => {
     const actualLeaveDays = Math.ceil(
       (new Date(dateRange?.endDate).getTime() -
         new Date(dateRange?.startDate).getTime()) /
-        (1000 * 60 * 60 * 24) +
-        1
+      (1000 * 60 * 60 * 24) +
+      1
     );
 
     setLeaveDays(actualLeaveDays);
@@ -55,7 +55,7 @@ const LeaveForm = () => {
   return (
     <div className=" bg-white p-5 rounded-md">
       <h1 className="text-xl font-bold">Vionsys Leave Request Form</h1>
-      <p className="p-2">Incase of one day leave just select start date</p>
+      <p className="p-2">In case of a one-day leave, just select the start date.</p>
       <div title="leave Form" visible={true} footer={false}>
         <div className="flex w-full">
           <Space direction="vertical" size={20}>
@@ -140,11 +140,11 @@ const LeaveForm = () => {
             )}
           </div>
           <Form.Item
-            label="reason"
+            label="Reason"
             name="leaveReason"
             rules={[{ required: true, message: "Please enter Leave reason" }]}
           >
-            <TextArea rows={4} placeholder="reason for leave request" />
+            <TextArea rows={4} placeholder="Reason for leave request" />
           </Form.Item>
 
           <Form.Item>

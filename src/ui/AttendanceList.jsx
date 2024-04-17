@@ -38,7 +38,7 @@ const AttendanceList = () => {
     {
       key: "employeeId",
       dataIndex: "employeeId",
-      title: "EmployeeId",
+      title: "Employee ID",
       // width: '100px',
     },
     {
@@ -87,9 +87,9 @@ const AttendanceList = () => {
       <div className="flex justify-between p-4">
         <h2 className="text-xl py-4 ">Attendance List : </h2>
         <Popover placement="topLeft" title="Get Excel" style={{ width: '100px' }}>
-        <Button className="text-[#217346] bg-white shadow-md" onClick={() => setmodal(true)}>
-        <RiFileExcel2Line  />
-        </Button>
+          <Button className="text-[#217346] bg-white shadow-md" onClick={() => setmodal(true)}>
+            <RiFileExcel2Line />
+          </Button>
         </Popover>
       </div>
       {isPending && <LoaderIcon />}

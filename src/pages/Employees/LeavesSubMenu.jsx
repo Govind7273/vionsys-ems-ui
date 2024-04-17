@@ -25,7 +25,7 @@ const LeavesSubMenu = () => {
                         }`}
                     onClick={() => handleSidebarLinkClick("Canceled leaves")}
                 >
-                    Canceled leaves
+                    Cancelled leaves
                 </Link>
             </div>
 
