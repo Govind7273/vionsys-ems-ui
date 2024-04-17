@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useGetLeaveRequests from "../../features/leaves/useGetLeaveRequests";
 import { LoaderIcon } from "react-hot-toast";
-import { Button, Table, Tag } from "antd";
+import { Button, Input, Table, Tag } from "antd";
 import { format } from "date-fns";
 import getUserIdRole from "../../utils/getUserIdRole";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -10,6 +10,7 @@ import AdminLeaveModal from "../../ui/leavesUI/AdminLeaveModal";
 const AdminLeavePage = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [leavedata, setleavedata] = useState({});
+  const [searchName, setSearchName] = useState("");
 
   const { id } = getUserIdRole();
   const { data, isPending } = useGetLeaveRequests(id);
@@ -17,9 +18,9 @@ const AdminLeavePage = () => {
   // the cloumns in admin leaves page
   const columns = [
     {
-      title: "User Email",
-      dataIndex: "email",
-      key: "email",
+      title: "User ",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Leave Type",
@@ -103,11 +104,15 @@ const AdminLeavePage = () => {
 
   AllLeaves?.forEach((leave) => {
     leave?.leaves?.forEach((leaveData) => {
-      dataSource?.push({
-        key: leaveData?._id,
-        email: leave?.email,
-        ...leaveData,
-      });
+      const fullName = `${leave?.firstName} ${leave?.lastName}`;
+      if (fullName.toLocaleLowerCase().includes(searchName.toLocaleLowerCase())) {
+        dataSource.push({
+          key: leaveData?._id,
+          email: leave?.email,
+          name: fullName,
+          ...leaveData,
+        });
+      }
     });
   });
   const sorteduserLeaves = dataSource?.sort(
@@ -119,11 +124,17 @@ const AdminLeavePage = () => {
   };
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       <AdminLeaveModal
         modalOpen={modalOpen}
         setmodalOpen={setmodalOpen}
         leavedata={leavedata}
+      />
+      <Input
+        placeholder="Search by name"
+        value={searchName}
+        onChange={(e) => setSearchName(e.target.value)}
+        style={{ marginBottom: "16px", width: "300px" }}
       />
       {isPending && <LoaderIcon />}
       {AllLeaves && <Table columns={columns} dataSource={sorteduserLeaves} />}

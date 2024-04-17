@@ -211,7 +211,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
             >
               <Select defaultValue="Select">
                 <Option value="Shubham Kale">Shubham Kale</Option>
-                <Option value="Pankaj Khandare">Pankaj Khandare</Option>
+                <Option value="Pankaj Kandhare">Pankaj Kandhare</Option>
                 <Option value="Govind Rathod">Govind Rathod</Option>
                 <Option value="Nilam Rathod">Nilam Rathod</Option>
               </Select>
@@ -220,7 +220,7 @@ const CreateNewUser = ({ isModalOpen, setIsModalOpen }) => {
             <Form.Item label="Team Lead" name="teamLead" className="flex-1">
               <Select defaultValue="Select">
                 <Option value="Shubham Kale">Shubham Kale</Option>
-                <Option value="Pankaj Khandare">Pankaj Khandare</Option>
+                <Option value="Pankaj Kandhare">Pankaj Kandhare</Option>
                 <Option value="Govind Rathod">Govind Rathod</Option>
                 <Option value="Nilam Rathod">Nilam Rathod</Option>
               </Select>

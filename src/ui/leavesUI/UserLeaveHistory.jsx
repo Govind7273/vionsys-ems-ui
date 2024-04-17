@@ -8,7 +8,7 @@ const UserLeaveHistory = (props) => {
   return (
     <>
       <div style={{ overflowX: "auto" }}>
-        <Table dataSource={userleave} columns={columns} className="px-5" />
+        <Table dataSource={userleave} columns={columns} className="" />
       </div>
     </>
   );

@@ -3,10 +3,10 @@ import Notifications from '../ui/Notifications'
 
 const NotificationsPage = () => {
   return (
-   <div className='md:p-20'>
-    <Notifications/>
-   </div>
+    <div className='md:px-8 py-6'>
+      <Notifications />
+    </div>
   )
 }
 
-export default NotificationsPage
+export default NotificationsPage;
