@@ -85,12 +85,12 @@ const TaskHistory = () => {
             ),
         },
         {
-            title: 'Started Date',
+            title: 'Starting Date',
             dataIndex: 'startedDate',
             key: 'startedDate',
         },
         {
-            title: 'Completed Date',
+            title: 'Completion Date',
             dataIndex: 'completedDate',
             key: 'completedDate',
         }

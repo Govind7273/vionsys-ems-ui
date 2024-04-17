@@ -28,7 +28,7 @@ const UserCancleLeave = () => {
         reason.length > 20 ? `${reason.substring(0, 30)}...` : reason,
     },
     {
-      title: "Cancle Reason",
+      title: "Cancel Reason",
       dataIndex: "cancleReason",
       key: "cancleReason",
       render: (reason) =>

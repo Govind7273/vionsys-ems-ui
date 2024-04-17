@@ -88,22 +88,22 @@ const PreviousWork = () => {
           className="flex flex-col gap-3"
         >
           <Form.Item
-            label="Componey Name"
+            label="Company Name"
             name="componeyName"
             className=""
             rules={[
-              { required: true, message: "Please enter the Componey Name" },
+              { required: true, message: "Please enter the Company Name" },
             ]}
           >
-            <Input placeholder="Componey Name" />
+            <Input placeholder="Company Name" />
           </Form.Item>
           <Form.Item
-            label="position"
+            label="Designation"
             name="position"
             className=""
             rules={[{ required: true, message: "Please enter the position" }]}
           >
-            <Input placeholder="Componey Name" className="" />
+            <Input placeholder="Company Name" className="" />
           </Form.Item>
           <div className="w-fit flex gap-2">
             <Input
@@ -134,6 +134,7 @@ const PreviousWork = () => {
 
           <Space direction="vertical" size={20} className="w-full">
             <RangePicker
+              placeholder={['Joining Date', 'Exit Date']}
               onChange={(e) =>
                 setDateRange({ startDate: e[0].$d, endDate: e[1].$d })
               }

@@ -20,9 +20,8 @@ const Dashboard = () => {
       {/* Sidebar */}
       <div className="flex flex-1 flex-col h-full fixed bg-slate-50 px-8 py-10  gap-2 shadow-md">
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Profile" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Profile" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Profile")}
         >
           Profile
@@ -35,25 +34,22 @@ const Dashboard = () => {
           Employment Type
         </Link> */}
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Previous Work" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Previous Work" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Previous Work")}
         >
           Previous work
         </Link>
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Joining Kit" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Joining Kit" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Joining Kit")}
         >
           Joining Kit
         </Link>
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "Attendance" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "Attendance" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("Attendance")}
         >
           Attendance
@@ -66,12 +62,11 @@ const Dashboard = () => {
           Documents
         </Link> */}
         <Link
-          className={`flex gap-2 hover:text-blue-400 rounded-md ${
-            activeLink === "HolidayCalander" ? "font-bold text-blue-300" : ""
-          }`}
+          className={`flex gap-2 hover:text-blue-400 rounded-md ${activeLink === "HolidayCalander" ? "font-bold text-blue-300" : ""
+            }`}
           onClick={() => handleSidebarLinkClick("HolidayCalander")}
         >
-          Holiday Calander
+          Holiday Calender
         </Link>
       </div>
 

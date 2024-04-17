@@ -133,14 +133,14 @@ const LeavesHistory = () => {
       {isPending && <LoaderIcon />}
 
       <Modal
-        title="Cancle Leave Request"
+        title="Cancel Leave Request"
         open={modal}
         footer={false}
         closeIcon={<HiXCircle size={25} onClick={() => setmodal(false)} />}
       >
         <div className="flex flex-col gap-3">
           <h1 className="text-red-700">
-            Do you really want to cancle this leave request ?
+            Do you really want to cancel this leave request ?
           </h1>
           <Input
             onChange={(e) => setcancleReason(e.target.value)}
@@ -153,7 +153,7 @@ const LeavesHistory = () => {
             className="text-red-600 hover:bg-red-600 hover:text-white"
             onClick={handleCancelLeaveSumbit}
           >
-            Cancle Leave
+            Cancel Leave
           </Button>
         </div>
       </Modal>

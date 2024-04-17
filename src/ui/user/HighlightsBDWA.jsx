@@ -28,6 +28,7 @@ const HighlightsBDWA = () => {
         }
     }, [TodaysBirthday]);
 
+
     return (
         <Card className="col-span-1 shadow-md relative">
             <h3 className='pb-2 font-semibold'>Highlights</h3>
@@ -85,11 +86,11 @@ const HighlightsBDWA = () => {
                 />
             )}
             {
-                UpcomingBirthday?.length < 0 && TodaysBirthday?.length < 0 && (
-                    <div>
-                        <h3>No special Event!!</h3>
+                UpcomingBirthday && TodaysBirthday ? (
+                    <div className='flex justify-center items-center'>
+                        <h4>No special event in this month!!!</h4>
                     </div>
-                )
+                ) : ''
             }
         </Card>
     )
