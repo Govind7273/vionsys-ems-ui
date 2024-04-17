@@ -17,11 +17,9 @@ import HighlightsBDWA from './HighlightsBDWA';
 const UserProfile = () => {
     const { id } = getUserIdRole();
     const { sendmail, isPending } = sendverifymail();
-    const { data: employeesAttendance, isPending: tableLoading } =
-        useGetAttendance();
+    const { data: employeesAttendance, isPending: tableLoading } = useGetAttendance();
     const { updateAttendance, isPending: updateLoading } = useUpdateAttendance();
-    const { createAttendance, isPending: attendanceLoading } =
-        useCreateAttendance();
+    const { createAttendance, isPending: attendanceLoading } = useCreateAttendance();
     const { user: userData, isPending: userLoading } = useGetCurrentUser(id);
 
     const checkIsToday = (employeesAttendance) => {
@@ -31,70 +29,77 @@ const UserProfile = () => {
         return checkIsToday;
     };
 
-    const [startTime, setStartTime] = useState();
-    const [isActive, setIsActive] = useState(
-        localStorage.getItem("isActive") ? localStorage.getItem("isActive") : false
-    );
+    const [startTime, setStartTime] = useState("00:00:00");
+    const [isActive, setIsActive] = useState(false);
 
     useEffect(() => {
+        if (!tableLoading) {
+            const currentDateData = checkIsToday(employeesAttendance);
+            if (currentDateData.length > 0) {
+                // If there is login time for today but no logout time, set isActive to true
+                if (!currentDateData[0]?.logoutTime) {
+                    setIsActive(true);
+                } else {
+                    setIsActive(false);
+                }
+            } else {
+                // If there is no login time for today, set isActive to false
+                setIsActive(false);
+            }
+        }
+    }, [tableLoading, employeesAttendance]);
+
+    useEffect(() => {
+        let timer;
         if (!tableLoading && isActive) {
-            setInterval(() => {
+            timer = setInterval(() => {
                 const currentDateData = checkIsToday(employeesAttendance);
-                const timeDifference = Math.abs(
-                    new Date().getTime() -
-                    new Date(currentDateData[0]?.loginTime)?.getTime()
-                );
-                let hours = Math.floor(timeDifference / (1000 * 60 * 60));
-                let minutes = Math.floor(
-                    (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-                );
-                let seconds = Math.abs(
-                    Math.floor((timeDifference % (1000 * 60)) / 1000)
-                );
-                hours = hours < 10 ? "0" + hours : hours;
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                const stopwatchOrTimerFormat = `${hours}:${minutes}:${seconds}`;
-                setStartTime(stopwatchOrTimerFormat);
+                if (currentDateData.length > 0) {
+                    const timeDifference = Math.abs(
+                        new Date().getTime() -
+                        new Date(currentDateData[0]?.loginTime)?.getTime()
+                    );
+                    let hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                    let minutes = Math.floor(
+                        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+                    );
+                    let seconds = Math.abs(
+                        Math.floor((timeDifference % (1000 * 60)) / 1000)
+                    );
+                    hours = hours < 10 ? "0" + hours : hours;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    const stopwatchOrTimerFormat = `${hours}:${minutes}:${seconds}`;
+                    setStartTime(stopwatchOrTimerFormat);
+                }
             }, 1000);
         } else {
             setStartTime("00:00:00");
         }
-    }, [tableLoading, employeesAttendance]);
+
+        return () => clearInterval(timer);
+    }, [tableLoading, isActive, employeesAttendance]);
 
     const handleAttendanceLogin = () => {
         const time = new Date().toISOString();
         if (!checkIsToday(employeesAttendance)?.length) {
-            handleCheckIn();
+            // If there is no login time for today, proceed with login
             createAttendance({ user: id, time, timeTag: "login" });
+            setIsActive(true);
         } else {
             toast.error("You are already checked in");
         }
     };
+
     const handleAttendanceLogout = () => {
         const time = new Date().toISOString();
         if (checkIsToday(employeesAttendance)?.length) {
-            handleCheckOut();
+            // If there is login time for today, proceed with logout
             updateAttendance({ user: id, time, timeTag: "logout" });
+            setIsActive(false);
         } else {
-            handleCheckOut();
+            toast.error("You are already checked out");
         }
-    };
-
-
-
-    const handleCheckIn = () => {
-        if (!isActive) {
-            localStorage.setItem("isActive", true);
-            setIsActive(true);
-        }
-    };
-
-    const handleCheckOut = () => {
-        setStartTime("00:00:00");
-        setIsActive(false);
-        window.location.reload();
-        localStorage.removeItem("isActive");
     };
 
     const handleSendVerifyEmail = (email) => {
@@ -109,6 +114,7 @@ const UserProfile = () => {
                 ) : (
                     <>
                         <div className="w-[100%] grid md:grid-cols-4 grid-cols-1 bg-white rounded-md shadow-lg">
+                            {/* Your JSX for user profile */}
                             {/* left side image */}
                             <div className="flex items-center col-span-1">
                                 <img src={userData?.data?.user?.profile} className="rounded-l-md w-[250px] h-[200px]" alt="" />
@@ -226,7 +232,6 @@ const UserProfile = () => {
                                 </div>
                             </Card>
                         </div>
-
                     </>
                 )
             }

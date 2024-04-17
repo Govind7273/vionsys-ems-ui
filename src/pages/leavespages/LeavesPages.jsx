@@ -4,7 +4,7 @@ import LeaveForm from "../../ui/leavesUI/LeaveForm";
 const LeavesPages = () => {
   return (
     <>
-      <main className="flex justify-center items-center h-full">
+      <main className="flex justify-center items-center">
         <LeaveForm />
       </main>
     </>

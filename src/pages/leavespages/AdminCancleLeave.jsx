@@ -1,36 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import getUserIdRole from "../../utils/getUserIdRole";
 import useGetLeaveRequests from "../../features/leaves/useGetLeaveRequests";
 import { format } from "date-fns";
-import { Tag } from "antd";
+import { Input, Tag } from "antd";
 import { LoaderIcon } from "react-hot-toast";
 import UserLeaveHistory from "../../ui/leavesUI/UserLeaveHistory";
 
 const AdminCancleLeave = () => {
   const { id } = getUserIdRole();
   const { data, isPending } = useGetLeaveRequests(id);
+  const [searchName, setSearchName] = useState("");
 
   const dataSource = [];
   const AllLeaves = data?.AllLeaves;
   AllLeaves?.forEach((leave) => {
     leave?.leaves?.forEach((leaveData) => {
-      dataSource?.unshift({
-        key: leaveData?._id,
-        email: leave?.email,
-        ...leaveData,
-      });
+      const fullName = `${leave?.firstName} ${leave?.lastName}`;
+      if (fullName.toLocaleLowerCase().includes(searchName.toLocaleLowerCase())) {
+        dataSource.push({
+          key: leaveData?._id,
+          email: leave?.email,
+          name: fullName,
+          ...leaveData,
+        });
+      }
     });
   });
 
   const CancledLeaves = dataSource?.filter(
     (leave) => leave?.leaveStatus == "Cancelled"
   );
+  console.log(CancledLeaves);
 
   const sorteduserLeaves = CancledLeaves?.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   const columns = [
+    {
+      title: "Employee Name",
+      dataIndex: "name",
+      key: "name",
+    },
     {
       title: "Leave Type",
       dataIndex: "leaveType",
@@ -100,7 +111,13 @@ const AdminCancleLeave = () => {
   ];
 
   return (
-    <div className="p-5">
+    <div className="px-5">
+      <Input
+        placeholder="Search by name"
+        value={searchName}
+        onChange={(e) => setSearchName(e.target.value)}
+        style={{ marginBottom: "16px", width: "300px" }}
+      />
       {isPending && <LoaderIcon />}
       {data && (
         <UserLeaveHistory userleave={sorteduserLeaves} columns={columns} />
