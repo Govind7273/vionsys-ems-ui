@@ -86,7 +86,7 @@ const HighlightsBDWA = () => {
                 />
             )}
             {
-                UpcomingBirthday && TodaysBirthday ? (
+                UpcomingBirthday?.length < 0 && TodaysBirthday?.length < 0 ? (
                     <div className='flex justify-center items-center'>
                         <h4>No special event in this month!!!</h4>
                     </div>

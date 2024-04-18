@@ -9,6 +9,7 @@ import ExcelForm from "../ui/ExcelForm";
 import { BiTask } from "react-icons/bi";
 import { RiFileExcel2Line } from "react-icons/ri";
 import { Tooltip } from "antd";
+import { format } from "date-fns";
 
 
 const UserDetails = () => {
@@ -103,7 +104,7 @@ const UserDetails = () => {
             {`${userData?.firstName} ${userData?.lastName}`}
           </p>
         </div>
-        <div className="grid md:grid-cols-4 gap-x-10 gap-y-4 md:pt-10 pt-6">
+        <div className="grid md:grid-cols-3 gap-x-10 gap-y-4 md:pt-10 pt-6">
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
               Office Email :{" "}
@@ -148,10 +149,18 @@ const UserDetails = () => {
           </p>
           <p className="text-lg">
             <span className="text-slate-400 block dark:text-white">
+              Date of Joining :{" "}
+            </span>
+            {userData?.doj
+              ? format(new Date(userData.doj), "dd-MM-yyyy")
+              : "N/A"}
+          </p>
+          <p className="text-lg">
+            <span className="text-slate-400 block dark:text-white">
               Date of Birth :{" "}
             </span>
-            {userData?.dob
-              ? new Date(userData.dob).toLocaleDateString()
+            {userData?.doj
+              ? format(new Date(userData.dob), "dd-MM-yyyy")
               : "N/A"}
           </p>
           <p className="text-lg">
