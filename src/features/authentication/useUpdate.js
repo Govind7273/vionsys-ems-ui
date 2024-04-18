@@ -9,13 +9,12 @@ const useUpdate = () => {
   const { mutate: update, isPending } = useMutation({
     mutationFn: (values) => UpdateUserApi(values),
     onSuccess: () => {
-      queryClient.invalidateQueries(
-        ["users"]
-      );
+      queryClient.invalidateQueries(["users"]);
       toast.success("User updated successfully");
       navigate(`/employees`);
     },
     onError: (err) => {
+      console.log(err);
       toast.error(err.response.data.message);
     },
   });
